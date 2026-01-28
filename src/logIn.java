@@ -187,7 +187,7 @@ public class logIn extends baseFrame {
                 JOptionPane.showMessageDialog(null, "Your account is still Pending. Please wait for Admin approval.");
             } else {
                 // Success! Open the dashboard
-                usersTable dash = new usersTable();
+                adminDashboard dash = new adminDashboard();
                 dash.setVisible(true);
                 this.dispose();
             }

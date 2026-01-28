@@ -11,7 +11,7 @@ import config.config;
  *
  * @author juls
  */
-public class usersTable extends adminDashboard {
+public class usersTable extends javax.swing.JFrame {
 
     
     public usersTable() {
@@ -38,21 +38,21 @@ public class usersTable extends adminDashboard {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
+        logout = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        teachers = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
+        users = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        jPanel13 = new javax.swing.JPanel();
+        evaluations = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
+        reports = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
-        jPanel15 = new javax.swing.JPanel();
+        departments = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
+        systemlogs = new javax.swing.JPanel();
         jLabel16 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_user = new javax.swing.JTable();
@@ -67,54 +67,55 @@ public class usersTable extends adminDashboard {
         jTextField1 = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        users1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(0, 33, 71));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBackground(new java.awt.Color(255, 0, 51));
-        jPanel5.setForeground(new java.awt.Color(255, 51, 51));
+        logout.setBackground(new java.awt.Color(255, 0, 51));
+        logout.setForeground(new java.awt.Color(255, 51, 51));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("LOG OUT");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
+        logout.setLayout(logoutLayout);
+        logoutLayout.setHorizontalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        logoutLayout.setVerticalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
                 .addComponent(jLabel5)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 170, 30));
+        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 170, 30));
 
         jPanel6.setBackground(new java.awt.Color(197, 179, 88));
         jPanel6.setForeground(new java.awt.Color(197, 179, 88));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("TEACHERS");
+        teachers.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        teachers.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        teachers.setText("TEACHERS");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+            .addComponent(teachers, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel6)
+                .addComponent(teachers)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -122,13 +123,18 @@ public class usersTable extends adminDashboard {
 
         jPanel11.setBackground(new java.awt.Color(197, 179, 88));
         jPanel11.setForeground(new java.awt.Color(197, 179, 88));
+        jPanel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jPanel11MouseClicked(evt);
+            }
+        });
 
-        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel11.setText("USERS");
-        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+        users.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        users.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        users.setText("USERS");
+        users.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel11MouseEntered(evt);
+                usersMouseEntered(evt);
             }
         });
 
@@ -136,12 +142,12 @@ public class usersTable extends adminDashboard {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+            .addComponent(users, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
-                .addComponent(jLabel11)
+                .addComponent(users)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -172,106 +178,108 @@ public class usersTable extends adminDashboard {
 
         jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 170, 30));
 
-        jPanel13.setBackground(new java.awt.Color(197, 179, 88));
-        jPanel13.setForeground(new java.awt.Color(197, 179, 88));
+        evaluations.setBackground(new java.awt.Color(197, 179, 88));
+        evaluations.setForeground(new java.awt.Color(197, 179, 88));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("EVALUATIONS");
 
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
+        javax.swing.GroupLayout evaluationsLayout = new javax.swing.GroupLayout(evaluations);
+        evaluations.setLayout(evaluationsLayout);
+        evaluationsLayout.setHorizontalGroup(
+            evaluationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, evaluationsLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
+        evaluationsLayout.setVerticalGroup(
+            evaluationsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(evaluationsLayout.createSequentialGroup()
                 .addComponent(jLabel13)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 170, 30));
+        jPanel1.add(evaluations, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 170, 30));
 
-        jPanel14.setBackground(new java.awt.Color(197, 179, 88));
-        jPanel14.setForeground(new java.awt.Color(197, 179, 88));
+        reports.setBackground(new java.awt.Color(197, 179, 88));
+        reports.setForeground(new java.awt.Color(197, 179, 88));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel14.setText("REPORTS");
 
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
+        javax.swing.GroupLayout reportsLayout = new javax.swing.GroupLayout(reports);
+        reports.setLayout(reportsLayout);
+        reportsLayout.setHorizontalGroup(
+            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reportsLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
+        reportsLayout.setVerticalGroup(
+            reportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reportsLayout.createSequentialGroup()
                 .addComponent(jLabel14)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 170, 30));
+        jPanel1.add(reports, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, 170, 30));
 
-        jPanel15.setBackground(new java.awt.Color(197, 179, 88));
-        jPanel15.setForeground(new java.awt.Color(197, 179, 88));
+        departments.setBackground(new java.awt.Color(197, 179, 88));
+        departments.setForeground(new java.awt.Color(197, 179, 88));
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel15.setText("DEPARTMENTS");
 
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+        javax.swing.GroupLayout departmentsLayout = new javax.swing.GroupLayout(departments);
+        departments.setLayout(departmentsLayout);
+        departmentsLayout.setHorizontalGroup(
+            departmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, departmentsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel15)
                 .addContainerGap())
         );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
+        departmentsLayout.setVerticalGroup(
+            departmentsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(departmentsLayout.createSequentialGroup()
                 .addComponent(jLabel15)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 170, 30));
+        jPanel1.add(departments, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 170, 30));
 
-        jPanel16.setBackground(new java.awt.Color(197, 179, 88));
-        jPanel16.setForeground(new java.awt.Color(197, 179, 88));
+        systemlogs.setBackground(new java.awt.Color(197, 179, 88));
+        systemlogs.setForeground(new java.awt.Color(197, 179, 88));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("SYSTEM LOGS");
 
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+        javax.swing.GroupLayout systemlogsLayout = new javax.swing.GroupLayout(systemlogs);
+        systemlogs.setLayout(systemlogsLayout);
+        systemlogsLayout.setHorizontalGroup(
+            systemlogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, systemlogsLayout.createSequentialGroup()
                 .addContainerGap(18, Short.MAX_VALUE)
                 .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
+        systemlogsLayout.setVerticalGroup(
+            systemlogsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(systemlogsLayout.createSequentialGroup()
                 .addComponent(jLabel16)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 170, 30));
+        jPanel1.add(systemlogs, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 170, 30));
 
+        table_user.setBackground(new java.awt.Color(0, 0, 0));
+        table_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         table_user.setForeground(new java.awt.Color(240, 240, 240));
         table_user.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -389,6 +397,18 @@ public class usersTable extends adminDashboard {
 
         jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 60, 30));
 
+        users1.setBackground(new java.awt.Color(197, 179, 88));
+        users1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        users1.setForeground(new java.awt.Color(197, 179, 88));
+        users1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        users1.setText("USERS");
+        users1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                users1MouseEntered(evt);
+            }
+        });
+        jPanel1.add(users1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 290, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -413,13 +433,21 @@ public class usersTable extends adminDashboard {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel11MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jLabel11MouseEntered
+    private void usersMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usersMouseEntered
+   
+    }//GEN-LAST:event_usersMouseEntered
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void users1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_users1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_users1MouseEntered
+
+    private void jPanel11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel11MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jPanel11MouseClicked
 
     /**
      * @param args the command line arguments
@@ -458,8 +486,9 @@ public class usersTable extends adminDashboard {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel departments;
+    private javax.swing.JPanel evaluations;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -468,25 +497,25 @@ public class usersTable extends adminDashboard {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JPanel logout;
+    private javax.swing.JPanel reports;
+    private javax.swing.JPanel systemlogs;
     private javax.swing.JTable table_user;
+    private javax.swing.JLabel teachers;
+    private javax.swing.JLabel users;
+    private javax.swing.JLabel users1;
     // End of variables declaration//GEN-END:variables
 }

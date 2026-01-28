@@ -23,13 +23,6 @@ public class dashboard extends javax.swing.JFrame{
     initComponents();
     
 }
-public void displayPendingUsers() {
-    config db = new config();
-    // Query to get only pending users
-    String query = "SELECT u_id, name, u_email, u_type, u_status FROM tbl_user WHERE u_status = 'Pending'";
-    
-    java.sql.ResultSet rs = db.getData(query);
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
