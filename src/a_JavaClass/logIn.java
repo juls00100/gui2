@@ -181,11 +181,19 @@ public class logIn extends javax.swing.JFrame {
         String password = passs.getText();
         config conf = new config();
 
-        String query = "SELECT u_type FROM tbl_user WHERE u_email = '" + email + "' AND u_pass = '" + password + "'";
+        String query = "SELECT u_type, u_status FROM tbl_user WHERE u_email = '" + email + "' AND u_pass = '" + password + "'";
         try {
             ResultSet rs = conf.getData(query);
             if (rs.next()) {
+                String status = rs.getString("u_status");
                 String role = rs.getString("u_type");
+                
+                if (status.equalsIgnoreCase("Pending")){
+                    JOptionPane.showMessageDialog(null, "Your accound is Pending");
+                    emails.setText("");
+                    passs.setText("");
+            }
+                else {
                 if (role.equals("Admin")) {
                     new adminDashboard().setVisible(true);
                 } else if (role.equals("Teacher")) {
@@ -194,6 +202,7 @@ public class logIn extends javax.swing.JFrame {
                     new studentDashboard().setVisible(true);
                 }
                 this.dispose(); 
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Credentials!");
             }

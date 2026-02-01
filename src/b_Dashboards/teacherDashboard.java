@@ -50,7 +50,7 @@ public class teacherDashboard extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         table_results = new javax.swing.JTable();
         logout1 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
+        logggout = new javax.swing.JLabel();
 
         logout.setBackground(new java.awt.Color(255, 0, 51));
         logout.setForeground(new java.awt.Color(255, 51, 51));
@@ -118,14 +118,14 @@ public class teacherDashboard extends javax.swing.JFrame {
         logout1.setForeground(new java.awt.Color(255, 51, 51));
         logout1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("LOG OUT");
-        jLabel6.setAlignmentX(0.5F);
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
+        logggout.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        logggout.setForeground(new java.awt.Color(240, 240, 240));
+        logggout.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        logggout.setText("LOG OUT");
+        logggout.setAlignmentX(0.5F);
+        logggout.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
+                logggoutMouseClicked(evt);
             }
         });
 
@@ -134,13 +134,13 @@ public class teacherDashboard extends javax.swing.JFrame {
         logout1Layout.setHorizontalGroup(
             logout1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logout1Layout.createSequentialGroup()
-                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(logggout, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
         logout1Layout.setVerticalGroup(
             logout1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logout1Layout.createSequentialGroup()
-                .addComponent(jLabel6)
+                .addComponent(logggout)
                 .addGap(0, 3, Short.MAX_VALUE))
         );
 
@@ -161,11 +161,11 @@ public class teacherDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jLabel5MouseClicked
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+    private void logggoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logggoutMouseClicked
         logIn loginFrame = new logIn();
         loginFrame.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jLabel6MouseClicked
+    }//GEN-LAST:event_logggoutMouseClicked
 
     /**
      * @param args the command line arguments
@@ -204,9 +204,9 @@ public class teacherDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel logggout;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel logout1;
     private javax.swing.JTable table_results;

@@ -32,6 +32,7 @@ public Javagui() {
         proceed = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        textLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -48,14 +49,14 @@ public Javagui() {
         textLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textLabel1.setText("Academic Evaluations");
         textLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(197, 179, 88)));
-        jPanel1.add(textLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 60, 240, 40));
+        jPanel1.add(textLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 240, 40));
 
         textLabel3.setBackground(new java.awt.Color(0, 33, 71));
         textLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         textLabel3.setForeground(new java.awt.Color(197, 179, 88));
         textLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textLabel3.setText("Where your voices are valuable.");
-        jPanel1.add(textLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 100, 190, 30));
+        textLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\SONY\\OneDrive\\Documents\\NetBeansProjects\\gui2\\part_300x300.png")); // NOI18N
+        jPanel1.add(textLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 360, 350));
 
         proceed.setBackground(new java.awt.Color(197, 179, 88));
         proceed.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.blue, null, null));
@@ -74,10 +75,17 @@ public Javagui() {
         jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         proceed.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 140, 30));
 
-        jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 190, 30));
+        jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 190, 30));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Academic Evaluations no.2.png"))); // NOI18N
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 240, 190));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 240, 190));
+
+        textLabel4.setBackground(new java.awt.Color(0, 33, 71));
+        textLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        textLabel4.setForeground(new java.awt.Color(197, 179, 88));
+        textLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textLabel4.setText("Where your voices are valuable.");
+        jPanel1.add(textLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 190, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -132,5 +140,6 @@ public Javagui() {
     private javax.swing.JPanel proceed;
     private javax.swing.JLabel textLabel1;
     private javax.swing.JLabel textLabel3;
+    private javax.swing.JLabel textLabel4;
     // End of variables declaration//GEN-END:variables
 }

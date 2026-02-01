@@ -184,31 +184,41 @@ public class signup1 extends javax.swing.JFrame {
     }//GEN-LAST:event_nameActionPerformed
 
     private void registerbutonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerbutonMouseClicked
-        config con = new config();
-        
+    config con = new config();
+    
+    String uName = name.getText().trim();
+    String uEmail = emails.getText().trim();
+    String uPass = new String(passs.getPassword()).trim(); 
+    String uType = type.getText().trim();
+
+    if (uName.isEmpty() || uEmail.isEmpty() || uPass.isEmpty() || uType.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Ngano blanko ni?", "Validation Error", JOptionPane.ERROR_MESSAGE);
+    } 
+    else {
         String sql = "INSERT INTO tbl_user(name, u_email, u_pass, u_type, u_status) VALUES(?, ?, ?, ?, ?)";
         
-        if(con.addRecord(sql, name.getText(), emails.getText() , passs.getText(), type.getText(), "Pending") == 1){
+        if(con.addRecord(sql, uName, uEmail, uPass, uType, "Pending") == 1){
             JOptionPane.showMessageDialog(null, "Registered Successfully! Please wait for Admin approval.");
+            
             name.setText("");
             emails.setText("");
             passs.setText("");
             type.setText("");
             
-        logIn loginFrame = new logIn();
-        loginFrame.setVisible(true);
-        this.dispose();
-            
-        }else{
-        JOptionPane.showMessageDialog(null, "Something Went Wrong!");
-                    }
+            logIn loginFrame = new logIn();
+            loginFrame.setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Something Went Wrong!");
+        }
+    }
     }//GEN-LAST:event_registerbutonMouseClicked
 
     private void backlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backlabelMouseClicked
-
         Javagui javaguiFrame = new Javagui();
         javaguiFrame.setVisible(true);
         this.dispose();
+
     }//GEN-LAST:event_backlabelMouseClicked
 
     private void passsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passsActionPerformed
