@@ -28,11 +28,12 @@ public Javagui() {
 
         jPanel1 = new javax.swing.JPanel();
         textLabel1 = new javax.swing.JLabel();
-        textLabel3 = new javax.swing.JLabel();
         proceed = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textLabel4 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        textLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -50,13 +51,6 @@ public Javagui() {
         textLabel1.setText("Academic Evaluations");
         textLabel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(197, 179, 88)));
         jPanel1.add(textLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 240, 40));
-
-        textLabel3.setBackground(new java.awt.Color(0, 33, 71));
-        textLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        textLabel3.setForeground(new java.awt.Color(197, 179, 88));
-        textLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textLabel3.setIcon(new javax.swing.ImageIcon("C:\\Users\\SONY\\OneDrive\\Documents\\NetBeansProjects\\gui2\\part_300x300.png")); // NOI18N
-        jPanel1.add(textLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 70, 360, 350));
 
         proceed.setBackground(new java.awt.Color(197, 179, 88));
         proceed.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.blue, null, null));
@@ -86,6 +80,33 @@ public Javagui() {
         textLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textLabel4.setText("Where your voices are valuable.");
         jPanel1.add(textLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 190, 30));
+
+        jPanel2.setBackground(new java.awt.Color(45, 52, 54));
+
+        textLabel3.setBackground(new java.awt.Color(0, 33, 71));
+        textLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        textLabel3.setForeground(new java.awt.Color(197, 179, 88));
+        textLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/part_300x300.png"))); // NOI18N
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(27, Short.MAX_VALUE)
+                .addComponent(textLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
+                .addComponent(textLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(87, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 410, 510));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -137,6 +158,7 @@ public Javagui() {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel proceed;
     private javax.swing.JLabel textLabel1;
     private javax.swing.JLabel textLabel3;

@@ -26,18 +26,19 @@ public class logIn extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        textLabel = new javax.swing.JLabel();
-        passs = new javax.swing.JTextField();
-        emails = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        create = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        create1 = new javax.swing.JLabel();
         back = new javax.swing.JPanel();
         backlabel = new javax.swing.JLabel();
         Login = new javax.swing.JPanel();
         login = new javax.swing.JLabel();
-        create = new javax.swing.JPanel();
-        create1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        passs = new javax.swing.JTextField();
+        emails = new javax.swing.JTextField();
+        textLabel = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -62,34 +63,28 @@ public class logIn extends javax.swing.JFrame {
         jPanel3.setPreferredSize(new java.awt.Dimension(500, 400));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        textLabel.setBackground(new java.awt.Color(0, 33, 71));
-        textLabel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        textLabel.setForeground(new java.awt.Color(240, 240, 240));
-        textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        textLabel.setText("Log In");
-        jPanel3.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 75, 35));
+        create.setBackground(new java.awt.Color(0, 33, 71));
+        create.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        create.setForeground(new java.awt.Color(240, 240, 240));
+        create.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 170, -1));
 
-        passs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passsActionPerformed(evt);
+        jPanel4.setBackground(new java.awt.Color(45, 52, 54));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        create1.setBackground(new java.awt.Color(0, 153, 51));
+        create1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        create1.setForeground(new java.awt.Color(240, 240, 240));
+        create1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        create1.setText("No account? Create account.");
+        create1.setFocusable(false);
+        create1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        create1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                create1MouseClicked(evt);
             }
         });
-        jPanel3.add(passs, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, 170, -1));
-
-        emails.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailsActionPerformed(evt);
-            }
-        });
-        jPanel3.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 140, 170, -1));
-
-        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel1.setText("Password:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, -1, -1));
-
-        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel2.setText("Email:");
-        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
+        jPanel4.add(create1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 280, 170, 20));
 
         back.setBackground(new java.awt.Color(197, 179, 88));
         back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -109,7 +104,7 @@ public class logIn extends javax.swing.JFrame {
         });
         back.add(backlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 50, -1));
 
-        jPanel3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 230, 50, 20));
+        jPanel4.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 50, 20));
 
         Login.setBackground(new java.awt.Color(0, 204, 51));
         Login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -129,30 +124,43 @@ public class logIn extends javax.swing.JFrame {
         });
         Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 60, 20));
 
-        jPanel3.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 230, 60, -1));
+        jPanel4.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 60, -1));
 
-        create.setBackground(new java.awt.Color(0, 33, 71));
-        create.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        create.setForeground(new java.awt.Color(240, 240, 240));
-        create.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel3.add(create, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 190, 170, -1));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel1.setText("Password:");
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, -1, -1));
 
-        create1.setBackground(new java.awt.Color(0, 153, 51));
-        create1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        create1.setForeground(new java.awt.Color(240, 240, 240));
-        create1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        create1.setText("No account? Create account.");
-        create1.setFocusable(false);
-        create1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        create1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                create1MouseClicked(evt);
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel2.setText("Email:");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+
+        passs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passsActionPerformed(evt);
             }
         });
-        jPanel3.add(create1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 280, 170, 20));
+        jPanel4.add(passs, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 170, 30));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Academic Evaluations no.2.png"))); // NOI18N
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 240, 190));
+        emails.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                emailsActionPerformed(evt);
+            }
+        });
+        jPanel4.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, 170, 30));
+
+        textLabel.setBackground(new java.awt.Color(0, 33, 71));
+        textLabel.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        textLabel.setForeground(new java.awt.Color(240, 240, 240));
+        textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textLabel.setText("Log In");
+        jPanel4.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 90, 75, 35));
+
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 510));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Academic Evaluations no.2.png"))); // NOI18N
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 240, 190));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -181,10 +189,16 @@ public class logIn extends javax.swing.JFrame {
         String password = passs.getText();
         config conf = new config();
 
-        String query = "SELECT u_type, u_status FROM tbl_user WHERE u_email = '" + email + "' AND u_pass = '" + password + "'";
+        // Sa sulod sa loginMouseClicked...
+        String query = "SELECT * FROM tbl_user WHERE u_email = '" + email + "' AND u_pass = '" + password + "'";    
         try {
             ResultSet rs = conf.getData(query);
             if (rs.next()) {
+                config.setSession(
+                rs.getString("u_id"),
+                rs.getString("u_name"), 
+                rs.getString("u_email"), 
+                rs.getString("u_type"));
                 String status = rs.getString("u_status");
                 String role = rs.getString("u_type");
                 
@@ -196,12 +210,14 @@ public class logIn extends javax.swing.JFrame {
                 else {
                 if (role.equals("Admin")) {
                     new adminDashboard().setVisible(true);
+                    this.dispose();
                 } else if (role.equals("Teacher")) {
                     new teacherDashboard().setVisible(true);
+                    this.dispose();
                 } else {
                     new studentDashboard().setVisible(true);
+                    this.dispose();
                 }
-                this.dispose(); 
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid Credentials!");
@@ -258,9 +274,10 @@ public class logIn extends javax.swing.JFrame {
     public javax.swing.JTextField emails;
     public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
-    public javax.swing.JLabel jLabel3;
+    public javax.swing.JLabel jLabel5;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
+    public javax.swing.JPanel jPanel4;
     public javax.swing.JLabel login;
     public javax.swing.JTextField passs;
     public javax.swing.JLabel textLabel;

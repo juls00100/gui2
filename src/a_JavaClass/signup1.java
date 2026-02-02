@@ -1,9 +1,11 @@
 package a_JavaClass;
 
  
-import a_JavaClass.logIn;
 import config.config;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.*;
+
 public class signup1 extends javax.swing.JFrame {
 
     public signup1() {
@@ -35,6 +37,7 @@ public class signup1 extends javax.swing.JFrame {
         type = new javax.swing.JTextField();
         emails = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -109,7 +112,7 @@ public class signup1 extends javax.swing.JFrame {
         });
         signupPanel.add(registerbuton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, -1));
 
-        jPanel3.add(signupPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 330, 70, 20));
+        jPanel3.add(signupPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 340, 70, 20));
 
         back.setBackground(new java.awt.Color(197, 179, 88));
         back.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -140,7 +143,7 @@ public class signup1 extends javax.swing.JFrame {
                 .addComponent(backlabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 330, 70, 20));
+        jPanel3.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 70, 20));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(240, 240, 240));
@@ -172,7 +175,11 @@ public class signup1 extends javax.swing.JFrame {
         jPanel3.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 200, 150, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/Academic Evaluations no.2.png"))); // NOI18N
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 240, 190));
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 240, 190));
+
+        jPanel4.setBackground(new java.awt.Color(45, 52, 54));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 500));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -184,6 +191,7 @@ public class signup1 extends javax.swing.JFrame {
     }//GEN-LAST:event_nameActionPerformed
 
     private void registerbutonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_registerbutonMouseClicked
+
     config con = new config();
     
     String uName = name.getText().trim();
@@ -195,23 +203,25 @@ public class signup1 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Ngano blanko ni?", "Validation Error", JOptionPane.ERROR_MESSAGE);
     } 
     else {
-        String sql = "INSERT INTO tbl_user(name, u_email, u_pass, u_type, u_status) VALUES(?, ?, ?, ?, ?)";
-        
-        if(con.addRecord(sql, uName, uEmail, uPass, uType, "Pending") == 1){
-            JOptionPane.showMessageDialog(null, "Registered Successfully! Please wait for Admin approval.");
+        try {
+            String checkEmail = "SELECT * FROM tbl_user WHERE u_email = '" + uEmail + "'";
+            ResultSet rs = con.getData(checkEmail);
             
-            name.setText("");
-            emails.setText("");
-            passs.setText("");
-            type.setText("");
-            
-            logIn loginFrame = new logIn();
-            loginFrame.setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Something Went Wrong!");
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Email is already taken! Use a unique one.");
+            } else {
+                String sql = "INSERT INTO tbl_user(u_name, u_email, u_pass, u_type, u_status) VALUES(?, ?, ?, ?, ?)";
+                if(con.addRecord(sql, uName, uEmail, uPass, uType, "Pending") == 1){
+                    JOptionPane.showMessageDialog(null, "Registered Successfully! Wait for Admin approval.");
+                    new logIn().setVisible(true);
+                    this.dispose();
+                }
+            }
+        } catch (SQLException ex) {
+            System.out.println("Validation Error: " + ex);
         }
     }
+
     }//GEN-LAST:event_registerbutonMouseClicked
 
     private void backlabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backlabelMouseClicked
@@ -279,6 +289,7 @@ public class signup1 extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel5;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
+    public javax.swing.JPanel jPanel4;
     public javax.swing.JTextField name;
     public javax.swing.JPasswordField passs;
     public javax.swing.JLabel registerbuton;

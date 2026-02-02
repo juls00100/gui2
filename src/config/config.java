@@ -102,4 +102,21 @@ public int addRecord(String sql, Object... values) {
     java.sql.ResultSet rs = stmt.executeQuery(sql);
     return rs;
 }
+    private static String currentName;
+    private static String currentEmail;
+    private static String currentType;
+
+    private static String currentID;
+    
+    public static void setSession(String id, String name, String email, String type) {
+        currentID = id;
+        currentName = name;
+        currentEmail = email;
+        currentType = type;
+    }
+    public static String getID() { return currentID; }
+    public static String getName() { return currentName; }
+    public static String getEmail() { return currentEmail; }
+    public static String getType() { return currentType; }
 }
+
