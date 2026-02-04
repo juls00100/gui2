@@ -10,6 +10,7 @@ public class signup1 extends javax.swing.JFrame {
 
     public signup1() {
         initComponents();
+        
     }
     
     /**
@@ -24,7 +25,6 @@ public class signup1 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         textLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         name = new javax.swing.JTextField();
@@ -34,7 +34,6 @@ public class signup1 extends javax.swing.JFrame {
         backlabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         passs = new javax.swing.JPasswordField();
-        type = new javax.swing.JTextField();
         emails = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -68,11 +67,6 @@ public class signup1 extends javax.swing.JFrame {
         textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textLabel.setText("Sign Up");
         jPanel3.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 100, 75, 35));
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel1.setText("Type of User:");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 290, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
@@ -158,14 +152,6 @@ public class signup1 extends javax.swing.JFrame {
         });
         jPanel3.add(passs, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 240, 150, -1));
 
-        type.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        type.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                typeActionPerformed(evt);
-            }
-        });
-        jPanel3.add(type, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 280, 150, -1));
-
         emails.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         emails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,9 +183,10 @@ public class signup1 extends javax.swing.JFrame {
     String uName = name.getText().trim();
     String uEmail = emails.getText().trim();
     String uPass = new String(passs.getPassword()).trim(); 
-    String uType = type.getText().trim();
-
-    if (uName.isEmpty() || uEmail.isEmpty() || uPass.isEmpty() || uType.isEmpty()) {
+    
+ 
+    
+    if (uName.isEmpty() || uEmail.isEmpty() || uPass.isEmpty() ) {
         JOptionPane.showMessageDialog(null, "Ngano blanko ni?", "Validation Error", JOptionPane.ERROR_MESSAGE);
     } 
     else {
@@ -208,11 +195,11 @@ public class signup1 extends javax.swing.JFrame {
             ResultSet rs = con.getData(checkEmail);
             
             if (rs.next()) {
-                JOptionPane.showMessageDialog(null, "Email is already taken! Use a unique one.");
+                JOptionPane.showMessageDialog(null, "Gigamit na ni hanap ka new hehe");
             } else {
                 String sql = "INSERT INTO tbl_user(u_name, u_email, u_pass, u_type, u_status) VALUES(?, ?, ?, ?, ?)";
-                if(con.addRecord(sql, uName, uEmail, uPass, uType, "Pending") == 1){
-                    JOptionPane.showMessageDialog(null, "Registered Successfully! Wait for Admin approval.");
+                if(con.addRecord(sql, uName, uEmail, uPass, "Student", "Pending") == 1){
+                   
                     new logIn().setVisible(true);
                     this.dispose();
                 }
@@ -234,10 +221,6 @@ public class signup1 extends javax.swing.JFrame {
     private void passsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passsActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passsActionPerformed
-
-    private void typeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_typeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_typeActionPerformed
 
     private void emailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailsActionPerformed
         // TODO add your handling code here:
@@ -282,7 +265,6 @@ public class signup1 extends javax.swing.JFrame {
     public javax.swing.JPanel back;
     public javax.swing.JLabel backlabel;
     public javax.swing.JTextField emails;
-    public javax.swing.JLabel jLabel1;
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
@@ -295,6 +277,5 @@ public class signup1 extends javax.swing.JFrame {
     public javax.swing.JLabel registerbuton;
     public javax.swing.JPanel signupPanel;
     public javax.swing.JLabel textLabel;
-    public javax.swing.JTextField type;
     // End of variables declaration//GEN-END:variables
 }

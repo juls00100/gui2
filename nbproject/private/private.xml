@@ -3,13 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/a_JavaClass/Javagui.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/a_JavaClass/logIn.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/b_Dashboards/usersTable.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/config/config.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/b_Dashboards/acc_admin.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/a_JavaClass/signup1.java</file>
-            <file>file:/C:/Users/GWAPOKA/Documents/NetBeansProjects/gui2/src/b_Dashboards/adminDashboard.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/a_JavaClass/signup1.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/b_Dashboards/studentDashboard.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/b_Dashboards/usersTable.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/b_Dashboards/acc_admin.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/a_JavaClass/logIn.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/b_Dashboards/adminDashboard.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/config/config.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/a_JavaClass/Javagui.java</file>
+            <file>file:/C:/Users/GWAPOKA/Documents/gui2/src/b_Dashboards/t2.java</file>
         </group>
     </open-files>
 </project-private>
