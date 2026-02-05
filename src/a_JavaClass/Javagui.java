@@ -29,7 +29,7 @@ public Javagui() {
         jPanel1 = new javax.swing.JPanel();
         textLabel1 = new javax.swing.JLabel();
         proceed = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        LOGIN = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -62,12 +62,18 @@ public Javagui() {
         });
         proceed.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setBackground(new java.awt.Color(197, 179, 88));
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 33, 79));
-        jLabel2.setText("Click to Proceed");
-        jLabel2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        proceed.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 140, 30));
+        LOGIN.setBackground(new java.awt.Color(197, 179, 88));
+        LOGIN.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        LOGIN.setForeground(new java.awt.Color(0, 33, 79));
+        LOGIN.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        LOGIN.setText("CLICK TO PROCEED");
+        LOGIN.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        LOGIN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LOGINMouseClicked(evt);
+            }
+        });
+        proceed.add(LOGIN, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 30));
 
         jPanel1.add(proceed, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 340, 190, 30));
 
@@ -94,7 +100,7 @@ public Javagui() {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(27, Short.MAX_VALUE)
+                .addContainerGap(17, Short.MAX_VALUE)
                 .addComponent(textLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23))
         );
@@ -106,7 +112,7 @@ public Javagui() {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 0, 410, 510));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 0, 400, 510));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -118,6 +124,12 @@ public Javagui() {
         loginFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_proceedMouseClicked
+
+    private void LOGINMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LOGINMouseClicked
+        logIn loginFrame = new logIn();
+        loginFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_LOGINMouseClicked
 
     /**
      * @param args the command line arguments
@@ -155,7 +167,7 @@ public Javagui() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel LOGIN;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

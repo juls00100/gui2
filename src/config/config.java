@@ -118,5 +118,19 @@ public int addRecord(String sql, Object... values) {
     public static String getName() { return currentName; }
     public static String getEmail() { return currentEmail; }
     public static String getType() { return currentType; }
+    
+    public int getCount(String sql) {
+        int count = 0;
+        try (Connection conn = connectDB();
+             java.sql.Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error fetching count: " + e.getMessage());
+        }
+        return count;
+    }
 }
 
