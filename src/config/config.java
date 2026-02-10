@@ -132,5 +132,55 @@ public int addRecord(String sql, Object... values) {
         }
         return count;
     }
+    
+    public int updateRecord(String sql, Object... values) { 
+        try (java.sql.Connection conn = connectDB(); 
+                java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+            for (int i = 0; i < values.length; i++) { 
+                pstmt.setObject(i + 1, values[i]); } 
+            return pstmt.executeUpdate(); 
+        } catch 
+                (java.sql.SQLException e) { 
+            System.out.println("Update Error: " + e.getMessage()); 
+        return 0; } 
+    }
+    public java.util.List getQuestionList(String sql) { 
+        java.util.List list = new java.util.ArrayList(); 
+        try (java.sql.Connection conn = connectDB(); 
+                java.sql.PreparedStatement pstmt = conn.prepareStatement(sql); 
+                java.sql.ResultSet rs = pstmt.executeQuery()) { 
+            while (rs.next()) { list.add(rs.getString(1)); 
+            } 
+        } catch (
+                java.sql.SQLException e) { 
+            System.out.println("Error: " + e.getMessage()); 
+        } return list; 
+    
+    }
+    
+    public void deleteRecord(String sql, Object... values) { 
+        try (Connection conn = connectDB(); 
+                PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+            for (int i = 0; i < values.length; i++) { 
+                pstmt.setObject(i + 1, values[i]); } 
+            pstmt.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Record deleted successfully!"); 
+        } catch (SQLException e) 
+        { 
+            System.out.println("Error deleting record: " + e.getMessage()); 
+        } 
+    }
+
+    public void updateRecordOnly(String sql, Object... values) { 
+        try (Connection conn = connectDB(); 
+                PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+            for (int i = 0; i < values.length; i++) { 
+                pstmt.setObject(i + 1, values[i]); } 
+            pstmt.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Record updated successfully!"); 
+        } catch (SQLException e) { 
+            System.out.println("Error updating record: " + e.getMessage()); 
+        } 
+    }
 }
 

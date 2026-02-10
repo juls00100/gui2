@@ -38,7 +38,6 @@ public class userTadmin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        user1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         a = new javax.swing.JPanel();
         account = new javax.swing.JLabel();
@@ -53,38 +52,26 @@ public class userTadmin extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
         Back = new javax.swing.JLabel();
-        logout = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        logout = new javax.swing.JLabel();
+        user1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_user = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPanel9 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
+        DELETE = new javax.swing.JPanel();
+        delete = new javax.swing.JLabel();
+        APPROVE = new javax.swing.JPanel();
+        approve = new javax.swing.JLabel();
+        SEARCH = new javax.swing.JPanel();
+        search = new javax.swing.JLabel();
+        searchbox = new javax.swing.JTextField();
+        EDIT = new javax.swing.JPanel();
+        edit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 33, 71));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        user1.setForeground(new java.awt.Color(197, 179, 88));
-        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Academic Evaluation System - Admin Portal");
-        user1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                user1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 450, -1));
 
         jPanel2.setBackground(new java.awt.Color(45, 52, 54));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -164,6 +151,11 @@ public class userTadmin extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel13.setText("Manage Questions");
+        jLabel13.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel13MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout eLayout = new javax.swing.GroupLayout(e);
         e.setLayout(eLayout);
@@ -249,6 +241,10 @@ public class userTadmin extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
+        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         logout.setBackground(new java.awt.Color(0, 33, 71));
         logout.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         logout.setForeground(new java.awt.Color(197, 179, 88));
@@ -260,16 +256,23 @@ public class userTadmin extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
 
-        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
-        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setForeground(new java.awt.Color(197, 179, 88));
+        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user1.setText("Manage Users");
+        user1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 450, -1));
+
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
 
-        table_user.setBackground(new java.awt.Color(0, 0, 0));
+        table_user.setBackground(new java.awt.Color(240, 240, 240));
         table_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        table_user.setForeground(new java.awt.Color(240, 240, 240));
         table_user.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -280,107 +283,100 @@ public class userTadmin extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table_user);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 130, 510, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 530, 300));
 
-        jPanel5.setForeground(new java.awt.Color(240, 240, 240));
+        DELETE.setBackground(new java.awt.Color(231, 23, 37));
+        DELETE.setForeground(new java.awt.Color(240, 240, 240));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("UPDATE");
+        delete.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        delete.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        delete.setText("DELETE");
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
+        javax.swing.GroupLayout DELETELayout = new javax.swing.GroupLayout(DELETE);
+        DELETE.setLayout(DELETELayout);
+        DELETELayout.setHorizontalGroup(
+            DELETELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(delete, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 60, 30));
-
-        jPanel6.setForeground(new java.awt.Color(240, 240, 240));
-
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("DELETE");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        DELETELayout.setVerticalGroup(
+            DELETELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 60, 30));
+        jPanel1.add(DELETE, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 90, 70, 30));
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("UPDATE");
+        APPROVE.setBackground(new java.awt.Color(80, 200, 120));
+        APPROVE.setForeground(new java.awt.Color(240, 240, 240));
 
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, 60, 30));
-
-        jPanel8.setForeground(new java.awt.Color(240, 240, 240));
-
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("Search");
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 60, 30));
-
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        approve.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        approve.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        approve.setText("APPROVE");
+        approve.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                approveMouseClicked(evt);
             }
         });
-        jPanel1.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 230, 30));
 
-        jPanel9.setForeground(new java.awt.Color(240, 240, 240));
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("ADD");
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        javax.swing.GroupLayout APPROVELayout = new javax.swing.GroupLayout(APPROVE);
+        APPROVE.setLayout(APPROVELayout);
+        APPROVELayout.setHorizontalGroup(
+            APPROVELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(approve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        APPROVELayout.setVerticalGroup(
+            APPROVELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(approve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 60, 30));
+        jPanel1.add(APPROVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 80, 30));
+
+        SEARCH.setForeground(new java.awt.Color(240, 240, 240));
+
+        search.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        search.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        search.setText("SEARCH");
+
+        javax.swing.GroupLayout SEARCHLayout = new javax.swing.GroupLayout(SEARCH);
+        SEARCH.setLayout(SEARCHLayout);
+        SEARCHLayout.setHorizontalGroup(
+            SEARCHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        SEARCHLayout.setVerticalGroup(
+            SEARCHLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(SEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 90, 70, 30));
+
+        searchbox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        searchbox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchboxActionPerformed(evt);
+            }
+        });
+        jPanel1.add(searchbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 180, 30));
+
+        EDIT.setBackground(new java.awt.Color(240, 190, 18));
+        EDIT.setForeground(new java.awt.Color(240, 240, 240));
+
+        edit.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        edit.setForeground(new java.awt.Color(51, 51, 51));
+        edit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        edit.setText("EDIT");
+
+        javax.swing.GroupLayout EDITLayout = new javax.swing.GroupLayout(EDIT);
+        EDIT.setLayout(EDITLayout);
+        EDITLayout.setHorizontalGroup(
+            EDITLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(edit, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+        );
+        EDITLayout.setVerticalGroup(
+            EDITLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+        );
+
+        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 80, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -425,9 +421,37 @@ public class userTadmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_logoutMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void searchboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchboxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_searchboxActionPerformed
+
+    private void approveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_approveMouseClicked
+        int rowIndex = table_user.getSelectedRow(); 
+        if (rowIndex < 0) { 
+            javax.swing.JOptionPane.showMessageDialog(null, "Please select a user first!"); 
+        } else { 
+            javax.swing.table.TableModel model = table_user.getModel(); 
+            String id = model.getValueAt(rowIndex, 0).toString(); 
+            String name = model.getValueAt(rowIndex, 1).toString(); 
+            int confirm = javax.swing.JOptionPane.showConfirmDialog(null, "Approve " + name + "?", "Confirm", javax.swing.JOptionPane.YES_NO_OPTION); 
+            if (confirm == javax.swing.JOptionPane.YES_OPTION) { 
+                config conf = new config(); 
+                String sql = "UPDATE tbl_user SET u_status = 'Approved' WHERE u_id = ?"; 
+                int result = conf.updateRecord(sql, id); 
+                if (result > 0) { javax.swing.JOptionPane.showMessageDialog(null, "User Approved!"); 
+                displayUser(); 
+                } else { 
+                    javax.swing.JOptionPane.showMessageDialog(null, "Error updating database."); 
+                } 
+            } 
+        }
+    }//GEN-LAST:event_approveMouseClicked
+
+    private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
+        manageQ manageqFrame = new manageQ();
+        manageqFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jLabel13MouseClicked
 
     /**
      * @param args the command line arguments
@@ -465,34 +489,32 @@ public class userTadmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel APPROVE;
     private javax.swing.JLabel Back;
+    private javax.swing.JPanel DELETE;
+    private javax.swing.JPanel EDIT;
+    private javax.swing.JPanel SEARCH;
     private javax.swing.JPanel a;
     private javax.swing.JLabel account;
+    private javax.swing.JLabel approve;
     private javax.swing.JPanel b;
     private javax.swing.JLabel back;
     private javax.swing.JPanel d;
+    private javax.swing.JLabel delete;
     private javax.swing.JPanel e;
+    private javax.swing.JLabel edit;
     private javax.swing.JLabel evaluations;
     private javax.swing.JPanel g;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel logout;
+    private javax.swing.JLabel search;
+    private javax.swing.JTextField searchbox;
     private javax.swing.JTable table_user;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
