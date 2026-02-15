@@ -5,28 +5,76 @@
  */
 package config;
 
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.geom.Ellipse2D;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import net.proteanit.sql.DbUtils;
 
 
 public class config {
     //Connection Method to SQLITE
+    private static String currentID;
+    private static String currentName;
+    private static String currentEmail;
+    private static String currentType;
+    private static String currentImage; 
+    
+    public static void setSession(String id, String name, String email, String type, String image) {
+        currentID = id;
+        currentName = name;
+        currentEmail = email;
+        currentType = type;
+        currentImage = image;
+    }
+    public static class CircularLabel extends JLabel {
+
+        public CircularLabel() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        // This makes the edges smooth (anti-aliasing)
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        // Create a circular clip
+        Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, getWidth(), getHeight());
+        g2.setClip(circle);
+        super.paintComponent(g2);
+        g2.dispose();
+    }
+    
+
+    }
+
+    public static String getID() { return currentID; }
+    public static String getName() { return currentName; }
+    public static String getEmail() { return currentEmail; }
+    public static String getType() { return currentType; }
+    public static String getImage() { return currentImage; }
+    
 public static Connection connectDB() {
+    
+        
         Connection con = null;
         try {
             Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
-            con = DriverManager.getConnection("jdbc:sqlite:aes.db"); // Establish connection
+            con =DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+            
             System.out.println("Connection Successful");
         } catch (Exception e) {
             System.out.println("Connection Failed: " + e);
         }
         return con;
     }
+
 public int addRecord(String sql, Object... values) {
     try (Connection conn = this.connectDB(); // Use the connectDB method
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,9 +109,46 @@ public int addRecord(String sql, Object... values) {
         System.out.println("Error adding record: " + e.getMessage());
         return 0;
     }
-    
-    
 }
+
+     public int updateRecord(String sql, Object... values) { 
+        try (java.sql.Connection conn = connectDB(); 
+                java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+            for (int i = 0; i < values.length; i++) { 
+                pstmt.setObject(i + 1, values[i]); } 
+            return pstmt.executeUpdate(); 
+        } catch 
+                (java.sql.SQLException e) { 
+            System.out.println("Update Error: " + e.getMessage()); 
+        return 0; } 
+    }
+     
+     public void deleteRecord(String sql, Object... values) { 
+        try (Connection conn = connectDB(); 
+                PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+            for (int i = 0; i < values.length; i++) { 
+                pstmt.setObject(i + 1, values[i]); } 
+            pstmt.executeUpdate(); 
+            JOptionPane.showMessageDialog(null, "Record deleted successfully!"); 
+        } catch (SQLException e) 
+        { 
+            System.out.println("Error deleting record: " + e.getMessage()); 
+        } 
+    }
+     
+     public void displayData(String sql, javax.swing.JTable table) {
+        try (Connection con = connectDB();
+        PreparedStatement pstmt = con.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery()) {
+        // This line automatically maps the Resultset to your JTable
+        table.setModel(DbUtils.resultSetToTableModel(rs));
+        } catch (SQLException e) {
+        System.out.println("Error displaying data: "+ e.getMessage());
+
+        }
+    }
+
+     
     public boolean authenticate(String sql, Object ... values) {
         try (Connection conn = connectDB();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,40 +169,13 @@ public int addRecord(String sql, Object... values) {
         return false;
     }
     
-    public void displayData(String sql, javax.swing.JTable table) {
-        try (Connection con = connectDB();
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery()) {
-        // This line automatically maps the Resultset to your JTable
-        table.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException e) {
-        System.out.println("Error displaying data: "+ e.getMessage());
-
-        }
-    }
-
-    public java.sql.ResultSet getData(String sql) throws java.sql.SQLException {
-    java.sql.Connection conn = connectDB(); // Uses your existing connection method
-    java.sql.Statement stmt = conn.createStatement();
-    java.sql.ResultSet rs = stmt.executeQuery(sql);
-    return rs;
-}
-    private static String currentName;
-    private static String currentEmail;
-    private static String currentType;
-
-    private static String currentID;
     
-    public static void setSession(String id, String name, String email, String type) {
-        currentID = id;
-        currentName = name;
-        currentEmail = email;
-        currentType = type;
+    public ResultSet getData(String sql) throws SQLException {
+        Connection conn = connectDB();
+        java.sql.Statement stmt = conn.createStatement();
+        stmt.closeOnCompletion(); 
+        return stmt.executeQuery(sql);
     }
-    public static String getID() { return currentID; }
-    public static String getName() { return currentName; }
-    public static String getEmail() { return currentEmail; }
-    public static String getType() { return currentType; }
     
     public int getCount(String sql) {
         int count = 0;
@@ -133,17 +191,6 @@ public int addRecord(String sql, Object... values) {
         return count;
     }
     
-    public int updateRecord(String sql, Object... values) { 
-        try (java.sql.Connection conn = connectDB(); 
-                java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) { 
-            for (int i = 0; i < values.length; i++) { 
-                pstmt.setObject(i + 1, values[i]); } 
-            return pstmt.executeUpdate(); 
-        } catch 
-                (java.sql.SQLException e) { 
-            System.out.println("Update Error: " + e.getMessage()); 
-        return 0; } 
-    }
     public java.util.List getQuestionList(String sql) { 
         java.util.List list = new java.util.ArrayList(); 
         try (java.sql.Connection conn = connectDB(); 
@@ -157,20 +204,6 @@ public int addRecord(String sql, Object... values) {
         } return list; 
     
     }
-    
-    public void deleteRecord(String sql, Object... values) { 
-        try (Connection conn = connectDB(); 
-                PreparedStatement pstmt = conn.prepareStatement(sql)) { 
-            for (int i = 0; i < values.length; i++) { 
-                pstmt.setObject(i + 1, values[i]); } 
-            pstmt.executeUpdate(); 
-            JOptionPane.showMessageDialog(null, "Record deleted successfully!"); 
-        } catch (SQLException e) 
-        { 
-            System.out.println("Error deleting record: " + e.getMessage()); 
-        } 
-    }
-
     public void updateRecordOnly(String sql, Object... values) { 
         try (Connection conn = connectDB(); 
                 PreparedStatement pstmt = conn.prepareStatement(sql)) { 
@@ -182,5 +215,7 @@ public int addRecord(String sql, Object... values) {
             System.out.println("Error updating record: " + e.getMessage()); 
         } 
     }
+    
+   
 }
 
