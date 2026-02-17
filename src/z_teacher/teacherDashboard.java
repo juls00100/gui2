@@ -19,23 +19,25 @@ public class teacherDashboard extends javax.swing.JFrame {
     /**
      * Creates new form teacherDashboard
      */
-     /*public teacherDashboard() {
+     public teacherDashboard() {
+         
+        if (config.stopIllegalAccess(this)) return;
         initComponents();
         displayResults();
-        tname.setText(config.getName());
+        /*tname.setText(config.getName());
     String path = config.getImage();
     if(path != null) {
         image.setIcon(resizeImage(path, null));
+    }*/
     }
-    }
+     
     
     
-    void displayResults(){
-        
+    void displayResults() {
         config con = new config();
-        String sql = "SELECT * FROM t.name tbl_evaluation";
+        // Assuming the teacher's ID in tbl_user matches their ID in the evaluation table
+        String sql = "SELECT e_date, e_average_rating, e_remarks FROM tbl_evaluation WHERE t_id = '" + config.getID() + "'";
         con.displayData(sql, table_results);
-        
     }
 
     /**

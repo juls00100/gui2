@@ -6,61 +6,84 @@
 package x_admin;
 import authenticate.logIn;
 import config.config;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-import javax.swing.JLabel;
+
+import javax.swing.ImageIcon;
+
 
 /**
  *
  * @author juls
  */
 public class adminDashboard extends javax.swing.JFrame {
-private String currentImagePath;
+    private String currentImagePath;
     private String currentUserName;
-    public static class CircularLabel extends JLabel {
-        
-        // 2. REMOVE 'static' FROM THE METHOD
-        @Override
-        protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            
-            // Create a circular clip
-            Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, getWidth(), getHeight());
-            g2.setClip(circle);
-            
-            super.paintComponent(g2);
-            g2.dispose();
-        }
-    }
-    private CircularLabel profile;
-
-
+    
     public adminDashboard(String name, String imagePath) {
+        if (config.stopIllegalAccess(this)) return;
+        initComponents(); 
         this.currentUserName = name;
         this.currentImagePath = imagePath;
-        initComponents(); // Call this to update the UI
         namee.setText(currentUserName);
         
-        if (currentImagePath != null && !currentImagePath.isEmpty()) {
-        profile.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(currentImagePath).getImage().getScaledInstance(profile.getWidth(), profile.getHeight(), java.awt.Image.SCALE_SMOOTH)));
-        }
-        refreshStats();
-        }
+        setupDashboard();
+    }
     
     public adminDashboard() {
+        if (config.stopIllegalAccess(this)) return;
         initComponents();
-        refreshStats();
-        namee.setText(config.getName());
         
-        String path = config.getImage();
-        if (path != null && !path.isEmpty()) {
-        // This scales the image to fit your profile JLabel perfectly
-        profile.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(path).getImage().getScaledInstance(60, 60, java.awt.Image.SCALE_SMOOTH)));
-        }
+        // Pull data from the session config
+        this.currentUserName = config.getName();
+        this.currentImagePath = config.getImage();
+        
+        setupDashboard();
+    }
     
+    private void setupDashboard() {
+        namee.setText(currentUserName);
+        
+        config conf = new config();
+        // Hover effects
+        conf.manageHover(a); conf.manageHover(b); conf.manageHover(d);
+        conf.manageHover(e); conf.manageHover(g); conf.manageHover(h);
+        conf.manageHover(i); conf.manageHover(A); conf.manageHover(B);
+        conf.manageHover(C); conf.manageHover(D);
+        
+        // Update the image using the crop logic
+        displayProfileImage(currentImagePath);
+        
+        refreshStats();
+    }
+    
+    private void displayProfileImage(String path) {
+        if (path != null && !path.isEmpty()) {
+            try {
+                int targetSize = 70; // Matches your layout constraints
+                ImageIcon imgIcon = new ImageIcon(path);
+                java.awt.Image sourceImg = imgIcon.getImage();
+
+                int width = sourceImg.getWidth(null);
+                int height = sourceImg.getHeight(null);
+
+                // Calculate crop to center square
+                int cropSize = Math.min(width, height);
+                int x = (width - cropSize) / 2;
+                int y = (height - cropSize) / 2;
+
+                java.awt.image.BufferedImage buffered = new java.awt.image.BufferedImage(
+                    width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+                java.awt.Graphics2D g2d = buffered.createGraphics();
+                g2d.drawImage(sourceImg, 0, 0, null);
+                g2d.dispose();
+
+                java.awt.image.BufferedImage croppedImg = buffered.getSubimage(x, y, cropSize, cropSize);
+                java.awt.Image finalImg = croppedImg.getScaledInstance(targetSize, targetSize, java.awt.Image.SCALE_SMOOTH);
+
+                profile.setIcon(new ImageIcon(finalImg));
+            } catch (Exception e) {
+                System.out.println("Error processing image: " + e.getMessage());
+            }
+        }
     }
     public void refreshStats() {
         config conf = new config();
@@ -88,6 +111,7 @@ private String currentImagePath;
             activeE1.setText("0%");
         }
     }
+
     
     
     @SuppressWarnings("unchecked")
@@ -106,7 +130,7 @@ private String currentImagePath;
         jLabel13 = new javax.swing.JLabel();
         g = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
+        i = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
         Back = new javax.swing.JLabel();
         h = new javax.swing.JPanel();
@@ -114,23 +138,23 @@ private String currentImagePath;
         jPanel3 = new javax.swing.JPanel();
         user1 = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
-        profile = new config.config.CircularLabel();
+        profile = new config.CircularLabel();
         namee = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
+        A = new javax.swing.JPanel();
         activeE = new javax.swing.JLabel();
         activeE1 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         activeE2 = new javax.swing.JLabel();
         activeE3 = new javax.swing.JLabel();
-        jPanel8 = new javax.swing.JPanel();
+        B = new javax.swing.JPanel();
         pending = new javax.swing.JLabel();
         pending1 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
+        C = new javax.swing.JPanel();
         users4 = new javax.swing.JLabel();
         users5 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
+        D = new javax.swing.JPanel();
         eprog2 = new javax.swing.JLabel();
         eprog3 = new javax.swing.JLabel();
 
@@ -176,6 +200,11 @@ private String currentImagePath;
         evaluations.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         evaluations.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         evaluations.setText("ACADEMIC CONTENT");
+        evaluations.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                evaluationsMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout bLayout = new javax.swing.GroupLayout(b);
         b.setLayout(bLayout);
@@ -193,6 +222,12 @@ private String currentImagePath;
         d.setBackground(new java.awt.Color(197, 179, 88));
         d.setForeground(new java.awt.Color(197, 179, 88));
         d.setPreferredSize(new java.awt.Dimension(142, 30));
+        d.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dMouseEntered(evt);
+            }
+        });
+        d.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         dashbord.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         dashbord.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -201,18 +236,11 @@ private String currentImagePath;
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 dashbordMouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                dashbordMouseEntered(evt);
+            }
         });
-
-        javax.swing.GroupLayout dLayout = new javax.swing.GroupLayout(d);
-        d.setLayout(dLayout);
-        dLayout.setHorizontalGroup(
-            dLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashbord, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-        );
-        dLayout.setVerticalGroup(
-            dLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(dashbord, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
+        d.add(dashbord, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 160, 30));
 
         jPanel2.add(d, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 160, -1));
 
@@ -271,7 +299,7 @@ private String currentImagePath;
 
         jPanel2.add(g, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 160, 30));
 
-        jPanel4.setBackground(new java.awt.Color(44, 62, 80));
+        i.setBackground(new java.awt.Color(44, 62, 80));
 
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/arrow20.png"))); // NOI18N
         back.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -289,23 +317,23 @@ private String currentImagePath;
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout iLayout = new javax.swing.GroupLayout(i);
+        i.setLayout(iLayout);
+        iLayout.setHorizontalGroup(
+            iLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(iLayout.createSequentialGroup()
                 .addComponent(back)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        iLayout.setVerticalGroup(
+            iLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 30));
+        jPanel2.add(i, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 30));
 
         h.setBackground(new java.awt.Color(197, 179, 88));
         h.setForeground(new java.awt.Color(197, 179, 88));
@@ -363,13 +391,17 @@ private String currentImagePath;
         });
         jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 70, 20));
 
-        profile.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(197, 179, 88)));
-        jPanel3.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 60, 50));
+        profile.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                profileMouseClicked(evt);
+            }
+        });
+        jPanel3.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 60));
 
         namee.setBackground(new java.awt.Color(44, 62, 80));
         namee.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
         namee.setForeground(new java.awt.Color(240, 240, 240));
-        jPanel3.add(namee, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 140, 30));
+        jPanel3.add(namee, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
 
@@ -384,19 +416,19 @@ private String currentImagePath;
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 230, 30));
 
-        jPanel6.setBackground(new java.awt.Color(45, 52, 54));
-        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        A.setBackground(new java.awt.Color(45, 52, 54));
+        A.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         activeE.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         activeE.setForeground(new java.awt.Color(240, 240, 240));
         activeE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         activeE.setText("Evaluations");
-        jPanel6.add(activeE, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
+        A.add(activeE, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
 
         activeE1.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
         activeE1.setForeground(new java.awt.Color(240, 240, 240));
         activeE1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel6.add(activeE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
+        A.add(activeE1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
         jPanel7.setBackground(new java.awt.Color(45, 52, 54));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -412,57 +444,57 @@ private String currentImagePath;
         activeE3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jPanel7.add(activeE3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
-        jPanel6.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 240, 110));
+        A.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 240, 110));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 240, 110));
+        jPanel1.add(A, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 240, 110));
 
-        jPanel8.setBackground(new java.awt.Color(45, 52, 54));
-        jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        B.setBackground(new java.awt.Color(45, 52, 54));
+        B.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         pending.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         pending.setForeground(new java.awt.Color(240, 240, 240));
         pending.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pending.setText("Pending Approvals");
-        jPanel8.add(pending, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 10, 240, -1));
+        B.add(pending, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 10, 240, -1));
 
         pending1.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
         pending1.setForeground(new java.awt.Color(240, 240, 240));
         pending1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel8.add(pending1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
+        B.add(pending1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 240, 110));
+        jPanel1.add(B, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 240, 110));
 
-        jPanel9.setBackground(new java.awt.Color(45, 52, 54));
-        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        C.setBackground(new java.awt.Color(45, 52, 54));
+        C.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         users4.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
         users4.setForeground(new java.awt.Color(240, 240, 240));
         users4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel9.add(users4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
+        C.add(users4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
         users5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         users5.setForeground(new java.awt.Color(240, 240, 240));
         users5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         users5.setText("Users");
-        jPanel9.add(users5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
+        C.add(users5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
 
-        jPanel1.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 240, 110));
+        jPanel1.add(C, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 240, 110));
 
-        jPanel10.setBackground(new java.awt.Color(45, 52, 54));
-        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        D.setBackground(new java.awt.Color(45, 52, 54));
+        D.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         eprog2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         eprog2.setForeground(new java.awt.Color(240, 240, 240));
         eprog2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eprog2.setText("Evaluation Progress");
-        jPanel10.add(eprog2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
+        D.add(eprog2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
 
         eprog3.setFont(new java.awt.Font("Matura MT Script Capitals", 0, 24)); // NOI18N
         eprog3.setForeground(new java.awt.Color(240, 240, 240));
         eprog3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jPanel10.add(eprog3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
+        D.add(eprog3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 240, 110));
+        jPanel1.add(D, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 240, 110));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -521,7 +553,9 @@ private String currentImagePath;
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void account1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_account1MouseClicked
-        
+        sysLogs tt = new sysLogs();
+        tt.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_account1MouseClicked
 
     private void dashbordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashbordMouseClicked
@@ -529,6 +563,26 @@ private String currentImagePath;
         dashFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_dashbordMouseClicked
+
+    private void profileMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileMouseClicked
+        userAccount accFrame = new userAccount();
+        accFrame.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_profileMouseClicked
+
+    private void dashbordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashbordMouseEntered
+       
+    }//GEN-LAST:event_dashbordMouseEntered
+
+    private void dMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dMouseEntered
+        
+    }//GEN-LAST:event_dMouseEntered
+
+    private void evaluationsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_evaluationsMouseClicked
+        manageEvaluations ad = new manageEvaluations();
+        ad.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_evaluationsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -566,7 +620,11 @@ private String currentImagePath;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel A;
+    private javax.swing.JPanel B;
     private javax.swing.JLabel Back;
+    private javax.swing.JPanel C;
+    private javax.swing.JPanel D;
     private javax.swing.JPanel a;
     private javax.swing.JLabel account;
     private javax.swing.JLabel account1;
@@ -584,18 +642,14 @@ private String currentImagePath;
     private javax.swing.JLabel evaluations;
     private javax.swing.JPanel g;
     private javax.swing.JPanel h;
+    private javax.swing.JPanel i;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JLabel logout;
     public javax.swing.JLabel namee;
     private javax.swing.JLabel pending;

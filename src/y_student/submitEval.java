@@ -5,6 +5,9 @@
  */
 package y_student;
 
+import config.config;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author juls
@@ -15,7 +18,31 @@ public class submitEval extends javax.swing.JFrame {
      * Creates new form submitEval
      */
     public submitEval() {
+        if (config.stopIllegalAccess(this)) return;
         initComponents();
+        
+        loadTeachers(); 
+    displayQuestions();
+    }
+    
+    public void loadTeachers() {
+    try {
+        config conf = new config();
+        // Get all teachers from your database
+        java.sql.ResultSet rs = conf.getData("SELECT t_id, t_name FROM tbl_teacher");
+        while(rs.next()) {
+            teacherDropdown.addItem(rs.getString("t_name"));
+        }
+    } catch (Exception e) {
+        System.out.println("Error loading teachers: " + e.getMessage());
+    }
+}
+    
+    public void displayQuestions() {
+        config conf = new config();
+        // Fetching the text and adding a column for the Score
+        String sql = "SELECT q_text as 'Question', '' as 'Score (1-5)' FROM tbl_evaluation_questions";
+        conf.displayData(sql, table_ques);
     }
 
     /**
@@ -31,6 +58,9 @@ public class submitEval extends javax.swing.JFrame {
         user = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         table_ques = new javax.swing.JTable();
+        teacherDropdown = new javax.swing.JComboBox<>();
+        SUBMIT = new javax.swing.JPanel();
+        submit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -63,7 +93,34 @@ public class submitEval extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(table_ques);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, 140));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, 140));
+
+        jPanel1.add(teacherDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 160, 290, -1));
+
+        SUBMIT.setBackground(new java.awt.Color(197, 179, 88));
+        SUBMIT.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.blue, null, null));
+        SUBMIT.setForeground(new java.awt.Color(0, 33, 71));
+        SUBMIT.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SUBMITMouseClicked(evt);
+            }
+        });
+        SUBMIT.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        submit.setBackground(new java.awt.Color(197, 179, 88));
+        submit.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        submit.setForeground(new java.awt.Color(0, 33, 79));
+        submit.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        submit.setText("SUBMIT");
+        submit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        submit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submitMouseClicked(evt);
+            }
+        });
+        SUBMIT.add(submit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 190, 30));
+
+        jPanel1.add(SUBMIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 420, 190, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
 
@@ -79,6 +136,70 @@ public class submitEval extends javax.swing.JFrame {
         submitevalFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userMouseClicked
+
+    private void submitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submitMouseClicked
+        String selectedName = teacherDropdown.getSelectedItem().toString();
+    String selectedTeacherID = ""; // We start empty
+
+    config conf = new config();
+    
+    try {
+        // 2. Query the database to find the ID for that specific Name
+        String sql = "SELECT t_id FROM tbl_teacher WHERE t_name = '" + selectedName + "'";
+        java.sql.ResultSet rs = conf.getData(sql);
+        
+        if (rs.next()) {
+            selectedTeacherID = rs.getString("t_id"); // Now we have the ID!
+        }
+    } catch (Exception e) {
+        System.out.println("Error finding ID: " + e.getMessage());
+    }
+
+    // 3. Now you can use 'selectedTeacherID' in your INSERT statement
+    if (!selectedTeacherID.isEmpty()) {
+        String insertSql = "INSERT INTO tbl_evaluation (t_id, s_u_id, e_average_rating, e_date) "
+                         + "VALUES (?, ?, ?, DATE('now'))";
+
+        conf.executeSQL(sql); // Use your config method to run the insert
+        JOptionPane.showMessageDialog(null, "Evaluation Submitted!");
+        this.dispose();
+    }
+    }//GEN-LAST:event_submitMouseClicked
+    
+    private void SUBMITMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SUBMITMouseClicked
+        int rowCount = table_ques.getRowCount();
+    double totalScore = 0;
+    int count = 0;
+
+    // 1. Loop through the table to get scores
+    for (int i = 0; i < rowCount; i++) {
+        Object value = table_ques.getValueAt(i, 1); // Column 1 is the Score
+        if (value != null && !value.toString().isEmpty()) {
+            totalScore += Double.parseDouble(value.toString());
+            count++;
+        }
+    }
+
+    if (count == 0) {
+        JOptionPane.showMessageDialog(this, "Please provide scores!");
+        return;
+    }
+
+    // 2. Calculate Average
+    double average = totalScore / count;
+    String remarks = (average >= 4) ? "Excellent" : (average >= 3) ? "Good" : "Needs Improvement";
+
+    // 3. Save to Database
+    config conf = new config();
+    String sql = "INSERT INTO tbl_evaluation (t_id, s_u_id, e_average_rating, e_remarks, e_date) VALUES (?, ?, ?, ?, DATE('now'))";
+    
+    // Note: You'll need to get the actual t_id based on the selected teacher name
+    int result = conf.addRecord(sql, selectedTeacherID, config.getID(), average, remarks);
+    
+    if (result == 1) {
+        this.dispose(); // Close after success
+    }
+    }//GEN-LAST:event_SUBMITMouseClicked
 
     /**
      * @param args the command line arguments
@@ -116,9 +237,12 @@ public class submitEval extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel SUBMIT;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel submit;
     private javax.swing.JTable table_ques;
+    private javax.swing.JComboBox<String> teacherDropdown;
     private javax.swing.JLabel user;
     // End of variables declaration//GEN-END:variables
 }

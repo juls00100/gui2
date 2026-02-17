@@ -34,25 +34,30 @@ public class config {
         currentType = type;
         currentImage = image;
     }
+    // Inside config.java
     public static class CircularLabel extends JLabel {
-
         public CircularLabel() {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            // Leave empty or set default properties
+            setOpaque(false);
         }
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        // This makes the edges smooth (anti-aliasing)
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        // Create a circular clip
-        Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, getWidth(), getHeight());
-        g2.setClip(circle);
-        super.paintComponent(g2);
-        g2.dispose();
+
+        @Override
+        protected void paintComponent(Graphics g) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Use the smaller of width/height to ensure a perfect circle
+            int diameter = Math.min(getWidth(), getHeight());
+            Ellipse2D.Double circle = new Ellipse2D.Double(0, 0, diameter, diameter);
+
+            g2.setClip(circle);
+            super.paintComponent(g2);
+            g2.dispose();
+        }
     }
     
 
-    }
+    
 
     public static String getID() { return currentID; }
     public static String getName() { return currentName; }
@@ -216,6 +221,46 @@ public int addRecord(String sql, Object... values) {
         } 
     }
     
-   
+    public static boolean stopIllegalAccess(javax.swing.JFrame frame) {
+        if (currentID == null) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Unable to proceed, please log in first.");
+            new authenticate.logIn().setVisible(true);
+            frame.dispose();
+            return true; 
+        }
+        return false; 
+    }
+    
+    public void manageHover(javax.swing.JPanel panel) {
+        // 1. Remember the color the panel had at the very start
+        java.awt.Color originalColor = panel.getBackground();
+        // 2. Define your highlight color (Lighter blue)
+        java.awt.Color hoverColor = new java.awt.Color(0, 51, 102); 
+
+        java.awt.event.MouseAdapter hoverEffect = new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                panel.setBackground(hoverColor);
+            }
+
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                // 3. Return to the EXACT color it had before
+                panel.setBackground(originalColor);
+            }
+        };
+
+        // Apply to the panel
+        panel.addMouseListener(hoverEffect);
+
+        // Apply to every Label inside so the text doesn't block the effect
+        for (java.awt.Component comp : panel.getComponents()) {
+            if (comp instanceof javax.swing.JLabel) {
+                comp.addMouseListener(hoverEffect);
+            }
+        }
+    }
+    
+
 }
 

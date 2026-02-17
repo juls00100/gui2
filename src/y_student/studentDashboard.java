@@ -1,6 +1,7 @@
 package y_student;
 
 import authenticate.logIn;
+import config.config;
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,6 +18,8 @@ public class studentDashboard extends javax.swing.JFrame {
      * Creates new form studentDashboard
      */
     public studentDashboard() {
+        
+        if (config.stopIllegalAccess(this)) return;
         initComponents();
     }
 
