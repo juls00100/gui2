@@ -7,14 +7,9 @@ package y_student;
 
 import authenticate.logIn;
 import config.config;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import x_admin.sysLogs;
 import x_admin.userAccount;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -32,7 +27,6 @@ public class submitEval extends javax.swing.JFrame {
         @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         bgroup = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
@@ -323,10 +317,6 @@ public class submitEval extends javax.swing.JFrame {
 
         bgroup.add(r2);
         r2.setText("2");
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.ButtonGroup(), org.jdesktop.beansbinding.ELProperty.create("${}"), r2, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         r2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r2ActionPerformed(evt);
@@ -335,10 +325,6 @@ public class submitEval extends javax.swing.JFrame {
 
         bgroup.add(r1);
         r1.setText("1");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.ButtonGroup(), org.jdesktop.beansbinding.ELProperty.create("${}"), r1, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         r1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r1ActionPerformed(evt);
@@ -347,10 +333,6 @@ public class submitEval extends javax.swing.JFrame {
 
         bgroup.add(r3);
         r3.setText("3");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.ButtonGroup(), org.jdesktop.beansbinding.ELProperty.create("${}"), r3, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         r3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r3ActionPerformed(evt);
@@ -359,10 +341,6 @@ public class submitEval extends javax.swing.JFrame {
 
         bgroup.add(r4);
         r4.setText("4");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.ButtonGroup(), org.jdesktop.beansbinding.ELProperty.create("${}"), r4, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         r4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r4ActionPerformed(evt);
@@ -371,10 +349,6 @@ public class submitEval extends javax.swing.JFrame {
 
         bgroup.add(r5);
         r5.setText("5");
-
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, new javax.swing.ButtonGroup(), org.jdesktop.beansbinding.ELProperty.create("${}"), r5, org.jdesktop.beansbinding.BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
         r5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r5ActionPerformed(evt);
@@ -438,8 +412,6 @@ public class submitEval extends javax.swing.JFrame {
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 240, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -620,15 +592,24 @@ public class submitEval extends javax.swing.JFrame {
 }
    
     private void displayQuestion() {
-    // Update the label text
-    lblQuestion.setText(questions[currentIndex]);
-    
-    // Clear the selection for the new question
-    bgroup.clearSelection();
-    
-    // Optional: If they go "Back", reload their previous answer
-    // (This requires a bit more logic, but keeps it professional!)
-}
+        config conf = new config();
+        // Assuming your table is named tbl_question as per standard naming
+        String query = "SELECT q_description FROM tbl_question LIMIT 1 OFFSET 0"; 
+
+        try (java.sql.Connection conn = conf.getConnection();
+             java.sql.Statement stmt = conn.createStatement();
+             java.sql.ResultSet rs = stmt.executeQuery(query)) {
+
+            if (rs.next()) {
+                lblQuestion.setText(rs.getString("q_description"));
+            } else {
+                lblQuestion.setText("No questions found in the database.");
+            }
+        } catch (java.sql.SQLException e) {
+            System.out.println("Error loading questions: " + e.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(this, "Failed to load questions: " + e.getMessage());
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -698,6 +679,5 @@ public class submitEval extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> teacherDropdown;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

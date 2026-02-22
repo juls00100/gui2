@@ -47,7 +47,7 @@ public class adminDashboard extends javax.swing.JFrame {
         // Hover effects
         conf.manageHover(a); conf.manageHover(b); conf.manageHover(d);
         conf.manageHover(e); conf.manageHover(g); conf.manageHover(h);
-        conf.manageHover(i); conf.manageHover(A); conf.manageHover(B);
+        conf.manageHover(A); conf.manageHover(B);
         conf.manageHover(C); conf.manageHover(D);
         
         // Update the image using the crop logic
@@ -98,7 +98,7 @@ public class adminDashboard extends javax.swing.JFrame {
         pending1.setText(String.valueOf(pending));
 
         // 3. Active Evaluations (Assuming you have a tbl_evaluation)
-        int activeEvals = conf.getCount("SELECT COUNT(DISTINCT t_id) FROM tbl_evaluation");
+        int activeEvals = conf.getCount("SELECT COUNT(DISTINCT t_u_id) FROM tbl_evaluation");
         eprog3.setText(String.valueOf(activeEvals));
 
         // 4. Progress Percentage (Logic: (Total Evals / Total Students) * 100)
@@ -131,9 +131,6 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         g = new javax.swing.JPanel();
         user = new javax.swing.JLabel();
-        i = new javax.swing.JPanel();
-        back = new javax.swing.JLabel();
-        Back = new javax.swing.JLabel();
         h = new javax.swing.JPanel();
         account1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -299,42 +296,6 @@ public class adminDashboard extends javax.swing.JFrame {
         );
 
         jPanel2.add(g, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 160, 30));
-
-        i.setBackground(new java.awt.Color(44, 62, 80));
-
-        back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/arrow20.png"))); // NOI18N
-        back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                backMouseClicked(evt);
-            }
-        });
-
-        Back.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
-        Back.setForeground(new java.awt.Color(240, 240, 240));
-        Back.setText("Back");
-        Back.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BackMouseClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout iLayout = new javax.swing.GroupLayout(i);
-        i.setLayout(iLayout);
-        iLayout.setHorizontalGroup(
-            iLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(iLayout.createSequentialGroup()
-                .addComponent(back)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        iLayout.setVerticalGroup(
-            iLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(back, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(Back, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(i, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 30));
 
         h.setBackground(new java.awt.Color(197, 179, 88));
         h.setForeground(new java.awt.Color(197, 179, 88));
@@ -535,18 +496,6 @@ public class adminDashboard extends javax.swing.JFrame {
 
     }//GEN-LAST:event_logoutMouseClicked
 
-    private void backMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_backMouseClicked
-        adminDashboard ad = new adminDashboard();
-        ad.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_backMouseClicked
-
-    private void BackMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackMouseClicked
-        adminDashboard ad = new adminDashboard();
-        ad.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_BackMouseClicked
-
     private void jLabel13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel13MouseClicked
         manageQ manageqFrame = new manageQ();
         manageqFrame.setVisible(true);
@@ -623,7 +572,6 @@ public class adminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel A;
     private javax.swing.JPanel B;
-    private javax.swing.JLabel Back;
     private javax.swing.JPanel C;
     private javax.swing.JPanel D;
     private javax.swing.JPanel a;
@@ -634,7 +582,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel activeE2;
     private javax.swing.JLabel activeE3;
     private javax.swing.JPanel b;
-    private javax.swing.JLabel back;
     private javax.swing.JPanel d;
     private javax.swing.JLabel dashbord;
     private javax.swing.JPanel e;
@@ -643,7 +590,6 @@ public class adminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel evaluations;
     private javax.swing.JPanel g;
     private javax.swing.JPanel h;
-    private javax.swing.JPanel i;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JPanel jPanel1;

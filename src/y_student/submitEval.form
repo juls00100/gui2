@@ -564,85 +564,55 @@
           <SubComponents>
             <Component class="javax.swing.JRadioButton" name="r2">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="2"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selected" source="buttonGroup2" sourcePath="${}" target="r2" targetPath="selected" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r2ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="r1">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selected" source="buttonGroup2" sourcePath="${}" target="r1" targetPath="selected" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r1ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="r3">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="3"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selected" source="buttonGroup2" sourcePath="${}" target="r3" targetPath="selected" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r3ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="r4">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="4"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selected" source="buttonGroup2" sourcePath="${}" target="r4" targetPath="selected" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r4ActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JRadioButton" name="r5">
               <Properties>
-                <Property name="model" type="javax.swing.ButtonModel" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="default"/>
-                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="bgroup"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="5"/>
               </Properties>
-              <BindingProperties>
-                <BindingProperty name="selected" source="buttonGroup2" sourcePath="${}" target="r5" targetPath="selected" updateStrategy="0" immediately="false"/>
-              </BindingProperties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="r5ActionPerformed"/>
               </Events>

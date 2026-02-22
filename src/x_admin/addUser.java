@@ -9,6 +9,7 @@ import authenticate.logIn;
 import config.config;
 import java.awt.Image;
 import java.io.File;
+import java.sql.SQLException;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -278,7 +279,7 @@ public class addUser extends javax.swing.JFrame {
             .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(SAVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 60, 30));
+        jPanel1.add(SAVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 60, 30));
 
         javax.swing.GroupLayout iddLayout = new javax.swing.GroupLayout(idd);
         idd.setLayout(iddLayout);
@@ -347,7 +348,7 @@ public class addUser extends javax.swing.JFrame {
             .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(CANCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, 60, 30));
+        jPanel1.add(CANCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 60, 30));
 
         jPanel2.setBackground(new java.awt.Color(45, 52, 54));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -590,7 +591,7 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_typeActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-                                            
+                                                                                    
     config conf = new config();
     String name = namee.getText();
     String email = emaill.getText();
@@ -598,40 +599,41 @@ public class addUser extends javax.swing.JFrame {
     String userType = type.getSelectedItem().toString();
     String imagee = (destination == null) ? "" : destination; 
 
+    // 1. Validate fields
     if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
         javax.swing.JOptionPane.showMessageDialog(null, "Please fill in all fields!");
         return;
     }
 
-    // STEP 1: Insert into tbl_user
-    // Fix: We use direct values here to match your current config.java logic
+    // 2. Insert main user record
     String sqlUser = "INSERT INTO tbl_user (u_name, u_email, u_pass, u_type, u_status, u_image) "
                    + "VALUES ('"+name+"', '"+email+"', '"+pass+"', '"+userType+"', 'Approved', '"+imagee+"')";
 
     if(conf.insertData(sqlUser)){
+        java.sql.ResultSet rs = null;
+        
         try {
-            // STEP 2: Get the ID of the user we just created
-            // We MUST use ' instead of " for the SQL string values
+            // 3. Fetch ID (Use a fresh query to find the generated ID)
             String fetchID = "SELECT u_id FROM tbl_user WHERE u_email = '" + email + "'";
-            java.sql.ResultSet rs = conf.getData(fetchID);
+            rs = conf.getData(fetchID);
             
             if(rs.next()){
                 String uid = rs.getString("u_id");
                 
-                // Close the result set immediately so it doesn't lock the DB for the next insert
-                rs.getStatement().getConnection().close(); 
+                // CRITICAL: Close the read connection before the next write
+                conf.closeResult(rs); 
 
-                // STEP 3: Insert into specific profile tables
+                // 4. Insert into specific profile tables with correct syntax
                 String sqlProfile = "";
                 if(userType.equalsIgnoreCase("Teacher")){
-                    sqlProfile = "INSERT INTO tbl_teacher (t_u_id, t_name, t_status) "
-                               + "VALUES ('"+uid+"', '"+name+"', 'Approved')";
+                    // Fixed: Added missing comma between n_name and t_status
+                    sqlProfile = "INSERT INTO tbl_teacher (t_u_id, t_name, t_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
                 } else if(userType.equalsIgnoreCase("Student")){
-                    sqlProfile = "INSERT INTO tbl_student (s_u_id, s_name) "
-                               + "VALUES ('"+uid+"', '"+name+"')";
+                    // Fixed: Added missing comma between s_name and s_status
+                    sqlProfile = "INSERT INTO tbl_student (s_u_id, s_name, s_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
                 } else if(userType.equalsIgnoreCase("Admin")){
-                    sqlProfile = "INSERT INTO tbl_admin (a_u_id, a_name) "
-                               + "VALUES ('"+uid+"', '"+name+"')";
+                    // Fixed: Added missing comma between a_name and a_status
+                    sqlProfile = "INSERT INTO tbl_admin (a_u_id, a_name, a_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
                 }
 
                 if(!sqlProfile.equals("")){
@@ -640,16 +642,16 @@ public class addUser extends javax.swing.JFrame {
             }
             
             javax.swing.JOptionPane.showMessageDialog(null, "Account and Profile Created!");
-            
-            // Refresh and Close
             new manageUsers().setVisible(true);
             this.dispose();
 
-        } catch (java.sql.SQLException ex) {
+        } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
+            javax.swing.JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
+        } finally {
+            // Safety cleanup to ensure database unlocks
+            if (rs != null) conf.closeResult(rs);
         }
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(null, "Connection Error or Duplicate Email.");
     }
 
 

@@ -38,24 +38,23 @@
             currentType = type;
             currentImage = image;
     }
-
-    // GETTERS: Ito ang ginagamit para makuha ang laman ng variables sa ibang frames
+        public static String getOnlineID() {
+        return currentID;
+    }
+       
     public static String getID() { return currentID; }
     public static String getName() { return currentName; }
     public static String getEmail() { return currentEmail; }
     public static String getType() { return currentType; }
     public static String getImage() { return currentImage; }
     
-    // Pwede ka ring magdagdag ng individual setters kung kailangan mong palitan ang isa lang
-    public static void setCurrentName(String name) {
+     public static void setCurrentName(String name) {
         if(name != null && !name.isEmpty()) {
             currentName = name;
         }
     }
-    // Inside config.java
     public static class CircularLabel extends JLabel {
         public CircularLabel() {
-            // Leave empty or set default properties
             setOpaque(false);
         }
 
@@ -97,11 +96,9 @@
         Connection conn = null;
         PreparedStatement pst = null;
         try {
-            // The timeout is key to preventing the "Busy" error
             conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
             pst = conn.prepareStatement(sql);
 
-            // This loop automatically puts your name, email, etc., into the (?) placeholders
             for (int i = 0; i < values.length; i++) {
                 pst.setObject(i + 1, values[i]);
             }
@@ -186,9 +183,6 @@
         return false;
     }
     
-    
- 
-    
     public int getCount(String sql) {
         int count = 0;
         try (Connection conn = connectDB();
@@ -226,6 +220,7 @@
         } catch (SQLException e) { 
             System.out.println("Error updating record: " + e.getMessage()); 
         } 
+        
     }
     
     public static boolean stopIllegalAccess(javax.swing.JFrame frame) {
@@ -288,16 +283,55 @@
         } catch (SQLException e) {
             System.out.println("Closing Error: " + e.getMessage());
         }
+        finally {
+            try{
+        conn.close();
+        pst.close();
+        }
+        catch(Exception e){
+        }
+        }
+        }
+        }
+
+    public TableModel getSafeModel(String sql) {
+        try (Connection conn = connectDB();
+             PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
+            return DbUtils.resultSetToTableModel(rs);
+        } catch (SQLException e) {
+            System.out.println("Error fetching model: " + e.getMessage());
+            return null;
+        }
     }
-}
-public ResultSet getData(String sql) throws SQLException {
-    // Note: Do not close the connection inside this method 
-    // because the ResultSet needs it to stay open to read data.
-    Connection conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
-    Statement stmt = conn.createStatement();
-    ResultSet rs = stmt.executeQuery(sql);
-    return rs;
-}
+
+    /**
+     * REFACTORED: If you MUST return a ResultSet, the calling class 
+     * is responsible for closing the Connection.
+     */
+    public ResultSet getData(String sql) throws SQLException {
+        // We use the busy_timeout here to prevent immediate locking errors
+        Connection conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+        Statement stmt = conn.createStatement();
+        // Use the statement to execute so we can trace it back to the connection later
+        return stmt.executeQuery(sql);
+    }
+
+    /**
+     * NEW: Helper to close the connection associated with a ResultSet
+     */
+    public void closeResult(ResultSet rs) {
+        try {
+            if (rs != null) {
+                Connection conn = rs.getStatement().getConnection();
+                rs.close();
+                if (conn != null) conn.close();
+            }
+        } catch (SQLException e) {
+            System.out.println("Cleanup Error: " + e.getMessage());
+        }
+    }
+
     }
     
     

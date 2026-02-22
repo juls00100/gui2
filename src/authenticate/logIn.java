@@ -1,18 +1,9 @@
 package authenticate;
 
 
-
- 
-
-import authenticate.signup1;
 import main.Javagui;
 import config.config;
 import javax.swing.*;
-import x_admin.adminDashboard;
-import y_student.studDashboard;
-import z_teacher.teacherDashboard;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class logIn extends javax.swing.JFrame {
 

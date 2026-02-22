@@ -36,7 +36,7 @@ public class teacherDashboard extends javax.swing.JFrame {
     void displayResults() {
         config con = new config();
         // Assuming the teacher's ID in tbl_user matches their ID in the evaluation table
-        String sql = "SELECT e_date, e_average_rating, e_remarks FROM tbl_evaluation WHERE t_id = '" + config.getID() + "'";
+        String sql = "SELECT e_date, e_average_rating, e_remarks FROM tbl_evaluation WHERE t_u_id = '" + config.getID() + "'";
         con.displayData(sql, table_results);
     }
 
