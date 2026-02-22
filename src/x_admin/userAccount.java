@@ -52,9 +52,9 @@ public class userAccount extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        user1 = new javax.swing.JLabel();
-        logout = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        logout = new javax.swing.JLabel();
+        user1 = new javax.swing.JLabel();
         users = new javax.swing.JLabel();
         eprog = new javax.swing.JLabel();
         pending = new javax.swing.JLabel();
@@ -86,16 +86,9 @@ public class userAccount extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(0, 33, 71));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        user1.setForeground(new java.awt.Color(197, 179, 88));
-        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("User Account");
-        user1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                user1MouseClicked(evt);
-            }
-        });
-        jPanel1.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 450, -1));
+        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logout.setBackground(new java.awt.Color(0, 33, 71));
         logout.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
@@ -108,12 +101,20 @@ public class userAccount extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
-        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        user1.setForeground(new java.awt.Color(197, 179, 88));
+        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user1.setText("MY PROFILE");
+        user1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 7, 450, 60));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         users.setForeground(new java.awt.Color(240, 240, 240));
         users.setText("Account ID:");

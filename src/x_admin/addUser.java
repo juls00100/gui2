@@ -114,20 +114,20 @@ public class addUser extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        bg.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        bg.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
         user1.setForeground(new java.awt.Color(197, 179, 88));
         user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Add User");
+        user1.setText("ADD USER");
         user1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user1MouseClicked(evt);
             }
         });
-        bg.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 450, 60));
+        bg.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 450, 70));
 
-        jPanel1.add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         id.setAlignment(java.awt.Label.CENTER);
         id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -297,7 +297,7 @@ public class addUser extends javax.swing.JFrame {
         image.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240), 4));
         image.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         image.setPreferredSize(new java.awt.Dimension(150, 150));
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, -1));
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, -1));
 
         change.setBackground(new java.awt.Color(197, 179, 88));
         change.setForeground(new java.awt.Color(240, 240, 240));
@@ -322,7 +322,7 @@ public class addUser extends javax.swing.JFrame {
             .addComponent(changepic, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 130, 30));
+        jPanel1.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 130, 30));
 
         CANCEL.setBackground(new java.awt.Color(192, 57, 43));
         CANCEL.setForeground(new java.awt.Color(240, 240, 240));
@@ -549,7 +549,7 @@ public class addUser extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -590,38 +590,68 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_typeActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-                             
-        config conf = new config();
+                                            
+    config conf = new config();
+    String name = namee.getText();
+    String email = emaill.getText();
+    String pass = passs.getText();
+    String userType = type.getSelectedItem().toString();
+    String imagee = (destination == null) ? "" : destination; 
 
-        // 1. Get values from your components
-        String name = namee.getText();
-        String email = emaill.getText();
-        String pass = passs.getText();
-        String userType = type.getSelectedItem().toString();
+    if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
+        javax.swing.JOptionPane.showMessageDialog(null, "Please fill in all fields!");
+        return;
+    }
 
-        // Use the 'destination' variable which holds the image path from the file chooser
-        String imagee = destination; 
+    // STEP 1: Insert into tbl_user
+    // Fix: We use direct values here to match your current config.java logic
+    String sqlUser = "INSERT INTO tbl_user (u_name, u_email, u_pass, u_type, u_status, u_image) "
+                   + "VALUES ('"+name+"', '"+email+"', '"+pass+"', '"+userType+"', 'Approved', '"+imagee+"')";
 
-        // 2. Validate (Don't save if fields are empty)
-        // You can also check if imagee.isEmpty() if the picture is required
-        if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(null, "Please fill in all fields!");
-        } else {
-            // 3. Define the SQL string with 6 placeholders (?)
-            // Matches: u_name, u_email, u_pass, u_type, u_status, u_image
-            String sql = "INSERT INTO tbl_user (u_name, u_email, u_pass, u_type, u_status, u_image) VALUES (?, ?, ?, ?, ?, ?)";
+    if(conf.insertData(sqlUser)){
+        try {
+            // STEP 2: Get the ID of the user we just created
+            // We MUST use ' instead of " for the SQL string values
+            String fetchID = "SELECT u_id FROM tbl_user WHERE u_email = '" + email + "'";
+            java.sql.ResultSet rs = conf.getData(fetchID);
+            
+            if(rs.next()){
+                String uid = rs.getString("u_id");
+                
+                // Close the result set immediately so it doesn't lock the DB for the next insert
+                rs.getStatement().getConnection().close(); 
 
-            // 4. Use addRecord to send the data
-            // Ensure the order of variables matches the SQL string above
-            int result = conf.addRecord(sql, name, email, pass, userType, "Approved", imagee);
+                // STEP 3: Insert into specific profile tables
+                String sqlProfile = "";
+                if(userType.equalsIgnoreCase("Teacher")){
+                    sqlProfile = "INSERT INTO tbl_teacher (t_u_id, t_name, t_status) "
+                               + "VALUES ('"+uid+"', '"+name+"', 'Approved')";
+                } else if(userType.equalsIgnoreCase("Student")){
+                    sqlProfile = "INSERT INTO tbl_student (s_u_id, s_name) "
+                               + "VALUES ('"+uid+"', '"+name+"')";
+                } else if(userType.equalsIgnoreCase("Admin")){
+                    sqlProfile = "INSERT INTO tbl_admin (a_u_id, a_name) "
+                               + "VALUES ('"+uid+"', '"+name+"')";
+                }
 
-            // 5. If successful, return to manageUsers
-            if(result == 1){
-                manageUsers mu = new manageUsers();
-                mu.setVisible(true);
-                this.dispose();
+                if(!sqlProfile.equals("")){
+                    conf.insertData(sqlProfile);
+                }
             }
+            
+            javax.swing.JOptionPane.showMessageDialog(null, "Account and Profile Created!");
+            
+            // Refresh and Close
+            new manageUsers().setVisible(true);
+            this.dispose();
+
+        } catch (java.sql.SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
         }
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(null, "Connection Error or Duplicate Email.");
+    }
+
 
 
     }//GEN-LAST:event_saveMouseClicked

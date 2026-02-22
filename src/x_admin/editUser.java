@@ -141,20 +141,20 @@ public class editUser extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
         user1.setForeground(new java.awt.Color(197, 179, 88));
         user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Edit User");
+        user1.setText("EDIT USER");
         user1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user1MouseClicked(evt);
             }
         });
-        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 450, 60));
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 0, 450, 70));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         id.setAlignment(java.awt.Label.CENTER);
         id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -300,13 +300,13 @@ public class editUser extends javax.swing.JFrame {
             .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(SAVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 60, 30));
+        jPanel1.add(SAVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 60, 30));
 
         image.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         image.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(240, 240, 240), 4));
         image.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         image.setPreferredSize(new java.awt.Dimension(150, 150));
-        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, -1, -1));
+        jPanel1.add(image, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, -1));
 
         change.setBackground(new java.awt.Color(197, 179, 88));
         change.setForeground(new java.awt.Color(240, 240, 240));
@@ -331,7 +331,7 @@ public class editUser extends javax.swing.JFrame {
             .addComponent(changepic, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 320, 130, 30));
+        jPanel1.add(change, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, 130, 30));
 
         CANCEL.setBackground(new java.awt.Color(192, 57, 43));
         CANCEL.setForeground(new java.awt.Color(240, 240, 240));
@@ -356,7 +356,7 @@ public class editUser extends javax.swing.JFrame {
             .addComponent(cancel, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(CANCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 370, 60, 30));
+        jPanel1.add(CANCEL, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 60, 30));
 
         namee.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         namee.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -583,7 +583,7 @@ public class editUser extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -622,22 +622,38 @@ public class editUser extends javax.swing.JFrame {
     public String destination = "";
     
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-     config con = new config();
-    String userID = iddd.getText();
+    config conf = new config();
+    
+    // Kunin ang data mula sa UI
+    String u_id = iddd.getText();
+    String u_name = namee.getText();
+    String u_email = emaill.getText();
+    String u_pass = passs.getText();
+    String u_type = type.getSelectedItem().toString();
+    // Siguraduhin na ang 'destination' variable ay may laman (image path)
+    
+    // 1. SQL Query gamit ang "?" placeholders
+    String sql = "UPDATE tbl_user SET u_name = ?, u_email = ?, u_pass = ?, u_type = ?, u_image = ? WHERE u_id = ?";
+    
+    // 2. I-execute gamit ang updateRecord
+    // Ang pagkakasunod-sunod dito ay dapat pareho sa "?" sa SQL sa taas
+    int result = conf.updateRecord(sql, u_name, u_email, u_pass, u_type, destination, u_id);
 
-     String sql = "UPDATE tbl_user SET u_name = '"+namee.getText()+"', "
-                + "u_email = '"+emaill.getText()+"', "
-                + "u_pass = '"+passs.getText()+"', "
-                + "u_type = '"+type.getSelectedItem().toString()+"', "
-                + "u_image = '"+destination+"' "
-                + "WHERE u_id = '"+userID+"'";
+    if(result > 0){
+    JOptionPane.showMessageDialog(null, "Successfully Updated!");
+    
+    // 1. Buksan ang bago
+    manageUsers mu = new manageUsers();
+    mu.setVisible(true);
+    
+    // 2. Isara itong kasalukuyang Edit Frame
+    this.dispose(); 
 
-     if(con.addRecord(sql) == 1) {
-         JOptionPane.showMessageDialog(null, "User Updated!");
-         new manageUsers().setVisible(true);
-         this.dispose();
-     }
-        
+    } else {
+        JOptionPane.showMessageDialog(null, "Error: Database is locked or ID not found.");
+    }
+this.dispose(); 
+
     }//GEN-LAST:event_saveMouseClicked
 
     private void changepicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changepicMouseClicked

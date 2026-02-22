@@ -3,36 +3,54 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package config;
+    package config;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import net.proteanit.sql.DbUtils;
+    import java.awt.Graphics;
+    import java.awt.Graphics2D;
+    import java.awt.RenderingHints;
+    import java.awt.geom.Ellipse2D;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.PreparedStatement;
+    import java.sql.ResultSet;
+    import java.sql.SQLException;
+    import javax.swing.JLabel;
+    import javax.swing.JOptionPane;
+    import net.proteanit.sql.DbUtils;
+    import java.sql.*;
+    import javax.swing.table.TableModel;
+    import net.proteanit.sql.DbUtils;
 
 
-public class config {
-    //Connection Method to SQLITE
-    private static String currentID;
-    private static String currentName;
-    private static String currentEmail;
-    private static String currentType;
-    private static String currentImage; 
+    public class config {
+        // Gawing private ang variables para hindi ma-access nang diretso sa labas
+        private static String currentID;
+        private static String currentName;
+        private static String currentEmail;
+        private static String currentType;
+        private static String currentImage; 
+
+        // SETTER: Ito ang naglalagay ng laman sa variables
+        public static void setSession(String id, String name, String email, String type, String image) {
+            currentID = id;
+            currentName = name;
+            currentEmail = email;
+            currentType = type;
+            currentImage = image;
+    }
+
+    // GETTERS: Ito ang ginagamit para makuha ang laman ng variables sa ibang frames
+    public static String getID() { return currentID; }
+    public static String getName() { return currentName; }
+    public static String getEmail() { return currentEmail; }
+    public static String getType() { return currentType; }
+    public static String getImage() { return currentImage; }
     
-    public static void setSession(String id, String name, String email, String type, String image) {
-        currentID = id;
-        currentName = name;
-        currentEmail = email;
-        currentType = type;
-        currentImage = image;
+    // Pwede ka ring magdagdag ng individual setters kung kailangan mong palitan ang isa lang
+    public static void setCurrentName(String name) {
+        if(name != null && !name.isEmpty()) {
+            currentName = name;
+        }
     }
     // Inside config.java
     public static class CircularLabel extends JLabel {
@@ -55,77 +73,70 @@ public class config {
             g2.dispose();
         }
     }
-    
-
-    
-
-    public static String getID() { return currentID; }
-    public static String getName() { return currentName; }
-    public static String getEmail() { return currentEmail; }
-    public static String getType() { return currentType; }
-    public static String getImage() { return currentImage; }
-    
-public static Connection connectDB() {
-    
-        
-        Connection con = null;
-        try {
-            Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
-            con =DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
-            
-            System.out.println("Connection Successful");
-        } catch (Exception e) {
-            System.out.println("Connection Failed: " + e);
-        }
-        return con;
+    public Connection getConnection() throws SQLException {
+        return DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
     }
+    
+    public static Connection connectDB() {
 
-public int addRecord(String sql, Object... values) {
-    try (Connection conn = this.connectDB(); // Use the connectDB method
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        // Loop through the values and set them in the prepared statement dynamically
-        for (int i = 0; i < values.length; i++) {
-            if (values[i] instanceof Integer) {
-                pstmt.setInt(i + 1, (Integer) values[i]); // If the value is Integer
-            } else if (values[i] instanceof Double) {
-                pstmt.setDouble(i + 1, (Double) values[i]); // If the value is Double
-            } else if (values[i] instanceof Float) {
-                pstmt.setFloat(i + 1, (Float) values[i]); // If the value is Float
-            } else if (values[i] instanceof Long) {
-                pstmt.setLong(i + 1, (Long) values[i]); // If the value is Long
-            } else if (values[i] instanceof Boolean) {
-                pstmt.setBoolean(i + 1, (Boolean) values[i]); // If the value is Boolean
-            } else if (values[i] instanceof java.util.Date) {
-                pstmt.setDate(i + 1, new java.sql.Date(((java.util.Date) values[i]).getTime())); // If the value is Date
-            } else if (values[i] instanceof java.sql.Date) {
-                pstmt.setDate(i + 1, (java.sql.Date) values[i]); // If it's already a SQL Date
-            } else if (values[i] instanceof java.sql.Timestamp) {
-                pstmt.setTimestamp(i + 1, (java.sql.Timestamp) values[i]); // If the value is Timestamp
-            } else {
-                pstmt.setString(i + 1, values[i].toString()); // Default to String for other types
+            Connection con = null;
+            try {
+                Class.forName("org.sqlite.JDBC"); // Load the SQLite JDBC driver
+                con =DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+
+                System.out.println("Connection Successful");
+            } catch (Exception e) {
+                System.out.println("Connection Failed: " + e);
+            }
+            return con;
+        }
+
+    public int addRecord(String sql, Object... values) {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement pst = null;
+        try {
+            // The timeout is key to preventing the "Busy" error
+            conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+            pst = conn.prepareStatement(sql);
+
+            // This loop automatically puts your name, email, etc., into the (?) placeholders
+            for (int i = 0; i < values.length; i++) {
+                pst.setObject(i + 1, values[i]);
+            }
+
+            result = pst.executeUpdate();
+            System.out.println("Record saved successfully!");
+        } catch (SQLException e) {
+            System.out.println("Database Error: " + e.getMessage());
+        } finally {
+            // CRITICAL: This is what unlocks the database for the next user
+            try {
+                if (pst != null) pst.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                System.out.println("Closing Error: " + ex.getMessage());
             }
         }
+        return result;
 
-        pstmt.executeUpdate();
-        JOptionPane.showMessageDialog(null, "Record added successfully!");
-        return 1;
-    } catch (SQLException e) {
-        System.out.println("Error adding record: " + e.getMessage());
-        return 0;
     }
-}
 
      public int updateRecord(String sql, Object... values) { 
         try (java.sql.Connection conn = connectDB(); 
-                java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) { 
-            for (int i = 0; i < values.length; i++) { 
-                pstmt.setObject(i + 1, values[i]); } 
-            return pstmt.executeUpdate(); 
-        } catch 
-                (java.sql.SQLException e) { 
-            System.out.println("Update Error: " + e.getMessage()); 
-        return 0; } 
+            java.sql.PreparedStatement pstmt = conn.prepareStatement(sql)) { 
+
+           for (int i = 0; i < values.length; i++) { 
+               pstmt.setObject(i + 1, values[i]); 
+           } 
+
+           return pstmt.executeUpdate(); 
+
+       } catch (java.sql.SQLException e) { 
+           System.out.println("Update Error: " + e.getMessage()); 
+           return 0; 
+       } 
     }
      
      public void deleteRecord(String sql, Object... values) { 
@@ -142,14 +153,15 @@ public int addRecord(String sql, Object... values) {
     }
      
      public void displayData(String sql, javax.swing.JTable table) {
-        try (Connection con = connectDB();
-        PreparedStatement pstmt = con.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery()) {
-        // This line automatically maps the Resultset to your JTable
-        table.setModel(DbUtils.resultSetToTableModel(rs));
-        } catch (SQLException e) {
-        System.out.println("Error displaying data: "+ e.getMessage());
+        // Try-with-resources syntax (Automatic close)
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+             PreparedStatement pst = conn.prepareStatement(sql);
+             ResultSet rs = pst.executeQuery()) {
 
+            table.setModel(DbUtils.resultSetToTableModel(rs));
+
+        } catch (SQLException e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -175,12 +187,7 @@ public int addRecord(String sql, Object... values) {
     }
     
     
-    public ResultSet getData(String sql) throws SQLException {
-        Connection conn = connectDB();
-        java.sql.Statement stmt = conn.createStatement();
-        stmt.closeOnCompletion(); 
-        return stmt.executeQuery(sql);
-    }
+ 
     
     public int getCount(String sql) {
         int count = 0;
@@ -261,6 +268,40 @@ public int addRecord(String sql, Object... values) {
         }
     }
     
-
+    // ADD THIS TO YOUR config.java
+ public boolean insertData(String sql) {
+    Connection conn = null;
+    PreparedStatement pst = null;
+    try {
+        // Ang busy_timeout ay nagbibigay ng pagkakataon sa Java na maghintay kaysa mag-error agad
+        conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+        pst = conn.prepareStatement(sql);
+        pst.executeUpdate();
+        return true;
+    } catch (SQLException ex) {
+        System.out.println("Insert Error: " + ex.getMessage());
+        return false;
+    } finally {
+        try {
+            if (pst != null) pst.close();
+            if (conn != null) conn.close(); 
+        } catch (SQLException e) {
+            System.out.println("Closing Error: " + e.getMessage());
+        }
+    }
 }
+public ResultSet getData(String sql) throws SQLException {
+    // Note: Do not close the connection inside this method 
+    // because the ResultSet needs it to stay open to read data.
+    Connection conn = DriverManager.getConnection("jdbc:sqlite:aes.db?busy_timeout=5000");
+    Statement stmt = conn.createStatement();
+    ResultSet rs = stmt.executeQuery(sql);
+    return rs;
+}
+    }
+    
+    
+    
+
+
 

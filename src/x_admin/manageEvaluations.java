@@ -81,20 +81,20 @@ public class manageEvaluations extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
         user1.setForeground(new java.awt.Color(197, 179, 88));
         user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Edit User");
+        user1.setText("MANAGE EVALUATIONS");
         user1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user1MouseClicked(evt);
             }
         });
-        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 30, 450, -1));
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 450, 70));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         jPanel2.setBackground(new java.awt.Color(45, 52, 54));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -142,7 +142,7 @@ public class manageEvaluations extends javax.swing.JFrame {
         b.setLayout(bLayout);
         bLayout.setHorizontalGroup(
             bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(evaluations, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(evaluations, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
         bLayout.setVerticalGroup(
             bLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,7 +223,7 @@ public class manageEvaluations extends javax.swing.JFrame {
         g.setLayout(gLayout);
         gLayout.setHorizontalGroup(
             gLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(user, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(user, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
         );
         gLayout.setVerticalGroup(
             gLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -296,7 +296,7 @@ public class manageEvaluations extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

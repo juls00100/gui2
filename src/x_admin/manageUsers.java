@@ -69,6 +69,7 @@ public class manageUsers extends javax.swing.JFrame {
     }
     }
     );
+        con.displayData("SELECT u_id, u_name, u_email, u_type, u_status FROM tbl_user", table_user);
                 
     }
     
@@ -131,20 +132,20 @@ public class manageUsers extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
         user1.setForeground(new java.awt.Color(197, 179, 88));
         user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Manage Users");
+        user1.setText("MANAGE USERS");
         user1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user1MouseClicked(evt);
             }
         });
-        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 7, 450, 60));
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 450, 70));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         table_user.setBackground(new java.awt.Color(240, 240, 240));
         table_user.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -163,7 +164,7 @@ public class manageUsers extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(table_user);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 530, 300));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 530, 300));
 
         DELETE.setBackground(new java.awt.Color(192, 57, 43));
         DELETE.setForeground(new java.awt.Color(240, 240, 240));
@@ -190,7 +191,7 @@ public class manageUsers extends javax.swing.JFrame {
             .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel1.add(DELETE, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 90, 60, 30));
+        jPanel1.add(DELETE, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 100, 60, 30));
 
         APPROVE.setBackground(new java.awt.Color(41, 128, 185));
         APPROVE.setForeground(new java.awt.Color(240, 240, 240));
@@ -217,7 +218,7 @@ public class manageUsers extends javax.swing.JFrame {
             .addComponent(approve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(APPROVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 90, 70, 30));
+        jPanel1.add(APPROVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, 70, 30));
 
         SEARCH.setBackground(new java.awt.Color(52, 73, 94));
         SEARCH.setForeground(new java.awt.Color(240, 240, 240));
@@ -243,7 +244,7 @@ public class manageUsers extends javax.swing.JFrame {
             .addComponent(search, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(SEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 90, 60, 30));
+        jPanel1.add(SEARCH, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 100, 60, 30));
 
         searchbox.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         searchbox.addActionListener(new java.awt.event.ActionListener() {
@@ -251,7 +252,7 @@ public class manageUsers extends javax.swing.JFrame {
                 searchboxActionPerformed(evt);
             }
         });
-        jPanel1.add(searchbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 170, 30));
+        jPanel1.add(searchbox, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 100, 170, 30));
 
         EDIT.setBackground(new java.awt.Color(243, 156, 18));
         EDIT.setForeground(new java.awt.Color(240, 240, 240));
@@ -277,7 +278,7 @@ public class manageUsers extends javax.swing.JFrame {
             .addComponent(edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 90, 60, 30));
+        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 60, 30));
 
         ADD.setBackground(new java.awt.Color(39, 174, 96));
         ADD.setForeground(new java.awt.Color(240, 240, 240));
@@ -303,7 +304,7 @@ public class manageUsers extends javax.swing.JFrame {
             .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 60, 30));
+        jPanel1.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 60, 30));
 
         jPanel2.setBackground(new java.awt.Color(45, 52, 54));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -505,7 +506,7 @@ public class manageUsers extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -581,22 +582,21 @@ if (rowIndex != -1) {
     private void editMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editMouseClicked
                                
     int row = table_user.getSelectedRow();
-    if (row == -1) {
-        JOptionPane.showMessageDialog(null, "Please select a user to edit first!");
+    if(row == -1){
+        JOptionPane.showMessageDialog(null, "Please select a user first!");
     } else {
         TableModel model = table_user.getModel();
-        editUser editFrame = new editUser();
-        // Set the data
-        editFrame.iddd.setText(model.getValueAt(row, 0).toString());
-        editFrame.namee.setText(model.getValueAt(row, 1).toString());
-        editFrame.emaill.setText(model.getValueAt(row, 2).toString());
-
-        // Set the image path and call the display method
-        editFrame.destination = model.getValueAt(row, 6).toString(); // Assuming 6 is u_image
-        editFrame.setVisible(true);
-        editFrame.displayImage(); 
+        editUser ed = new editUser();
+        
+        ed.iddd.setText("" + model.getValueAt(row, 0)); // ID
+        ed.namee.setText("" + model.getValueAt(row, 1)); // Name
+        ed.emaill.setText("" + model.getValueAt(row, 2)); // Email
+        ed.passs.setText(""); // Huwag kunin ang password sa table (madalas empty ito sa display)
+        
+        ed.setVisible(true);
         this.dispose();
     }
+
 
     }//GEN-LAST:event_editMouseClicked
     public void searchTable() {
@@ -673,9 +673,6 @@ if (rowIndex != -1) {
         this.dispose();
     }//GEN-LAST:event_evaluationsMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

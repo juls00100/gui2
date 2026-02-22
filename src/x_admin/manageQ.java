@@ -54,9 +54,9 @@ public class manageQ extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        logout = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         user1 = new javax.swing.JLabel();
+        logout = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         quesnumtot = new javax.swing.JLabel();
         QUES2 = new javax.swing.JLabel();
@@ -93,6 +93,21 @@ public class manageQ extends javax.swing.JFrame {
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
+        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        user1.setForeground(new java.awt.Color(197, 179, 88));
+        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user1.setText("MANAGE QUESTIONS");
+        user1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 450, 70));
+
         logout.setBackground(new java.awt.Color(0, 33, 71));
         logout.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         logout.setForeground(new java.awt.Color(197, 179, 88));
@@ -104,24 +119,9 @@ public class manageQ extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel1.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 30, 70, 20));
 
-        jPanel3.setBackground(new java.awt.Color(44, 62, 80));
-        jPanel3.setForeground(new java.awt.Color(240, 240, 240));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        user1.setForeground(new java.awt.Color(197, 179, 88));
-        user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Manage Questions");
-        user1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                user1MouseClicked(evt);
-            }
-        });
-        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 450, -1));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         jPanel5.setBackground(new java.awt.Color(79, 20, 54));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -153,9 +153,9 @@ public class manageQ extends javax.swing.JFrame {
         quessts.setRows(5);
         jScrollPane1.setViewportView(quessts);
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 520, 260));
+        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 580, 260));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 520, 260));
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, 580, 260));
 
         EDIT.setBackground(new java.awt.Color(240, 190, 18));
         EDIT.setForeground(new java.awt.Color(240, 240, 240));
@@ -181,7 +181,7 @@ public class manageQ extends javax.swing.JFrame {
             .addComponent(editBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 430, 80, 30));
+        jPanel1.add(EDIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 420, 80, 30));
 
         DELETE.setBackground(new java.awt.Color(231, 23, 37));
         DELETE.setForeground(new java.awt.Color(240, 240, 240));
@@ -206,7 +206,7 @@ public class manageQ extends javax.swing.JFrame {
             .addComponent(deleteBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jPanel1.add(DELETE, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 430, 70, 30));
+        jPanel1.add(DELETE, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 420, 70, 30));
 
         ADD.setBackground(new java.awt.Color(80, 200, 120));
         ADD.setForeground(new java.awt.Color(240, 240, 240));
@@ -232,7 +232,7 @@ public class manageQ extends javax.swing.JFrame {
             .addComponent(addBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel1.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 430, 80, 30));
+        jPanel1.add(ADD, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 420, 80, 30));
 
         jPanel2.setBackground(new java.awt.Color(45, 52, 54));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -434,7 +434,7 @@ public class manageQ extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 70, 220, 430));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -21,6 +21,7 @@ public class adminDashboard extends javax.swing.JFrame {
     public adminDashboard(String name, String imagePath) {
         if (config.stopIllegalAccess(this)) return;
         initComponents(); 
+        namee.setText(config.getName());
         this.currentUserName = name;
         this.currentImagePath = imagePath;
         namee.setText(currentUserName);
@@ -367,16 +368,16 @@ public class adminDashboard extends javax.swing.JFrame {
         jPanel3.setForeground(new java.awt.Color(240, 240, 240));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        user1.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        user1.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
         user1.setForeground(new java.awt.Color(197, 179, 88));
         user1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        user1.setText("Admin Portal");
+        user1.setText("ADMIN PORTAL");
         user1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 user1MouseClicked(evt);
             }
         });
-        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 0, 500, 70));
+        jPanel3.add(user1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 0, 500, 70));
 
         logout.setBackground(new java.awt.Color(0, 33, 71));
         logout.setFont(new java.awt.Font("Segoe UI Black", 0, 11)); // NOI18N
@@ -389,7 +390,7 @@ public class adminDashboard extends javax.swing.JFrame {
                 logoutMouseClicked(evt);
             }
         });
-        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 70, 20));
+        jPanel3.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 30, 70, 20));
 
         profile.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -403,7 +404,7 @@ public class adminDashboard extends javax.swing.JFrame {
         namee.setForeground(new java.awt.Color(240, 240, 240));
         jPanel3.add(namee, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, 30));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 70));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
         jPanel5.setBackground(new java.awt.Color(79, 20, 54));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -414,7 +415,7 @@ public class adminDashboard extends javax.swing.JFrame {
         jLabel1.setText("System Overview");
         jPanel5.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 30));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 100, 230, 30));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 230, 30));
 
         A.setBackground(new java.awt.Color(45, 52, 54));
         A.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -446,7 +447,7 @@ public class adminDashboard extends javax.swing.JFrame {
 
         A.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 120, 240, 110));
 
-        jPanel1.add(A, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 240, 110));
+        jPanel1.add(A, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 240, 110));
 
         B.setBackground(new java.awt.Color(45, 52, 54));
         B.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -462,7 +463,7 @@ public class adminDashboard extends javax.swing.JFrame {
         pending1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         B.add(pending1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
-        jPanel1.add(B, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 300, 240, 110));
+        jPanel1.add(B, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 240, 110));
 
         C.setBackground(new java.awt.Color(45, 52, 54));
         C.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -478,7 +479,7 @@ public class adminDashboard extends javax.swing.JFrame {
         users5.setText("Users");
         C.add(users5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 240, -1));
 
-        jPanel1.add(C, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 160, 240, 110));
+        jPanel1.add(C, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 240, 110));
 
         D.setBackground(new java.awt.Color(45, 52, 54));
         D.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -494,9 +495,9 @@ public class adminDashboard extends javax.swing.JFrame {
         eprog3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         D.add(eprog3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 120, 40));
 
-        jPanel1.add(D, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 240, 110));
+        jPanel1.add(D, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 300, 240, 110));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 500));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
