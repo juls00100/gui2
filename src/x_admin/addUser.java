@@ -591,7 +591,7 @@ public class addUser extends javax.swing.JFrame {
     }//GEN-LAST:event_typeActionPerformed
 
     private void saveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveMouseClicked
-                                                                                    
+                                                                                                     
     config conf = new config();
     String name = namee.getText();
     String email = emaill.getText();
@@ -599,60 +599,51 @@ public class addUser extends javax.swing.JFrame {
     String userType = type.getSelectedItem().toString();
     String imagee = (destination == null) ? "" : destination; 
 
-    // 1. Validate fields
     if(name.isEmpty() || email.isEmpty() || pass.isEmpty()){
         javax.swing.JOptionPane.showMessageDialog(null, "Please fill in all fields!");
         return;
     }
 
-    // 2. Insert main user record
+    // 1. Insert the main user
     String sqlUser = "INSERT INTO tbl_user (u_name, u_email, u_pass, u_type, u_status, u_image) "
                    + "VALUES ('"+name+"', '"+email+"', '"+pass+"', '"+userType+"', 'Approved', '"+imagee+"')";
 
     if(conf.insertData(sqlUser)){
-        java.sql.ResultSet rs = null;
+        String uid = "";
         
+        // 2. Fetch ID and close IMMEDIATELY
         try {
-            // 3. Fetch ID (Use a fresh query to find the generated ID)
             String fetchID = "SELECT u_id FROM tbl_user WHERE u_email = '" + email + "'";
-            rs = conf.getData(fetchID);
-            
+            java.sql.ResultSet rs = conf.getData(fetchID);
             if(rs.next()){
-                String uid = rs.getString("u_id");
-                
-                // CRITICAL: Close the read connection before the next write
-                conf.closeResult(rs); 
-
-                // 4. Insert into specific profile tables with correct syntax
-                String sqlProfile = "";
-                if(userType.equalsIgnoreCase("Teacher")){
-                    // Fixed: Added missing comma between n_name and t_status
-                    sqlProfile = "INSERT INTO tbl_teacher (t_u_id, t_name, t_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
-                } else if(userType.equalsIgnoreCase("Student")){
-                    // Fixed: Added missing comma between s_name and s_status
-                    sqlProfile = "INSERT INTO tbl_student (s_u_id, s_name, s_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
-                } else if(userType.equalsIgnoreCase("Admin")){
-                    // Fixed: Added missing comma between a_name and a_status
-                    sqlProfile = "INSERT INTO tbl_admin (a_u_id, a_name, a_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
-                }
-
-                if(!sqlProfile.equals("")){
-                    conf.insertData(sqlProfile);
-                }
+                uid = rs.getString("u_id");
             }
-            
-            javax.swing.JOptionPane.showMessageDialog(null, "Account and Profile Created!");
-            new manageUsers().setVisible(true);
-            this.dispose();
-
+            conf.closeResult(rs); // <--- CRITICAL: Close here before the next insert!
         } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
-            javax.swing.JOptionPane.showMessageDialog(null, "Database Error: " + ex.getMessage());
-        } finally {
-            // Safety cleanup to ensure database unlocks
-            if (rs != null) conf.closeResult(rs);
+            System.out.println("Fetch ID Error: " + ex.getMessage());
         }
+
+        // 3. Insert into specific profile table
+        if (!uid.equals("")) {
+            String sqlProfile = "";
+            if(userType.equalsIgnoreCase("Teacher")){
+                sqlProfile = "INSERT INTO tbl_teacher (t_u_id, t_name, t_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
+            } else if(userType.equalsIgnoreCase("Student")){
+                sqlProfile = "INSERT INTO tbl_student (s_u_id, s_name, s_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
+            } else if(userType.equalsIgnoreCase("Admin")){
+                sqlProfile = "INSERT INTO tbl_admin (a_u_id, a_name, a_status) VALUES ('"+uid+"', '"+name+"', 'Approved')";
+            }
+
+            if(!sqlProfile.equals("")){
+                conf.insertData(sqlProfile); // This will now succeed because the lock is released
+            }
+        }
+        
+        javax.swing.JOptionPane.showMessageDialog(null, "Account and Profile Created!");
+        new manageUsers().setVisible(true);
+        this.dispose();
     }
+
 
 
 

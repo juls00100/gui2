@@ -18,6 +18,7 @@ import x_admin.userAccount;
 public class submitEval extends javax.swing.JFrame {
     
     public submitEval() {
+         if (config.stopIllegalAccess(this)) return;
     initComponents();
     this.setSize(900, 520); // Forces the window to be wide enough for your background
     this.setLocationRelativeTo(null); // Centers the window on your screen

@@ -319,18 +319,22 @@
 
     /**
      * NEW: Helper to close the connection associated with a ResultSet
-     */
-    public void closeResult(ResultSet rs) {
-        try {
-            if (rs != null) {
-                Connection conn = rs.getStatement().getConnection();
+     * @param rs
+     */public void closeResult(ResultSet rs) {
+    try {
+        if (rs != null) {
+            Statement stmt = rs.getStatement();
+            if (stmt != null) {
+                Connection conn = stmt.getConnection();
                 rs.close();
-                if (conn != null) conn.close();
+                stmt.close();
+                if (conn != null) conn.close(); // Clears the SQLite lock
             }
-        } catch (SQLException e) {
-            System.out.println("Cleanup Error: " + e.getMessage());
         }
+    } catch (SQLException e) {
+        System.out.println("Cleanup Error: " + e.getMessage());
     }
+}
 
     }
     

@@ -19,6 +19,7 @@ public class viewEvals extends javax.swing.JFrame {
      * Creates new form viewEvals
      */
     public viewEvals() {
+         if (config.stopIllegalAccess(this)) return;
         initComponents();
     }
 

@@ -4,19 +4,28 @@
  * and open the template in the editor.
  */
 package y_student;
+
 import authenticate.logIn;
 import config.config;
 import javax.swing.JOptionPane;
 import x_admin.sysLogs;
 import x_admin.userAccount;
+import config.config;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import javax.swing.JOptionPane;
 
 public class evaluate extends javax.swing.JFrame {
 
     private java.util.List<String> questions = new java.util.ArrayList<>();
     private int[] ratings; // Stores ratings for each question
     private int currentQuestionIndex = 0;
+    private String selectedTeacherID = "";
 
     public evaluate() {
+         if (config.stopIllegalAccess(this)) return;
         initComponents();
         loadTeachers();
         fetchAllQuestions();
@@ -361,6 +370,7 @@ public class evaluate extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 230, 30));
 
+        teacherDropdown.setToolTipText("SELECT A TEACHER");
         teacherDropdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 teacherDropdownActionPerformed(evt);
@@ -437,65 +447,89 @@ public class evaluate extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void loadTeachers() {
-        config conf = new config();
-        teacherDropdown.removeAllItems();
-        teacherDropdown.addItem("— Select Teacher —");
-
-        try {
-            // Query matching your u_type and u_status columns
-            String query = "SELECT u_name FROM tbl_user WHERE u_type = 'Teacher' AND u_status = 'Approved'";
-            java.sql.ResultSet rs = conf.getData(query);
-
-            while (rs.next()) {
-                teacherDropdown.addItem(rs.getString("u_name"));
-            }
-            conf.closeResult(rs); 
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+    config conf = new config();
+    ResultSet rs = null; // 1. Declare OUTSIDE the try block
+    try {
+        rs = conf.getData("SELECT t_u_id, t_name FROM tbl_teacher");
+        
+        // Use the correct name of your JComboBox (teacherDropdown or teacherCombo)
+        teacherDropdown.removeAllItems(); 
+        
+        while (rs.next()) {
+            teacherDropdown.addItem(rs.getString("t_u_id") + " - " + rs.getString("t_name"));
         }
+    } catch (SQLException e) {
+        System.out.println("Error loading teachers: " + e.getMessage());
+    } finally {
+        // 2. The finally block can now see 'rs'
+        // 3. Your config.closeResult already handles null checks, so this is safe
+        conf.closeResult(rs); 
     }
-    private void getSelectedTeacherID() {
-        String selectedName = teacherDropdown.getSelectedItem().toString();
-        if (selectedName.equals("— Select Teacher —")) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Please select a teacher first!");
-            return;
-        }
+}
+    
+    int questionOffset = 0; 
 
+    private void fetchAllQuestions() {
         config conf = new config();
         try {
-            String query = "SELECT u_id FROM tbl_user WHERE u_name = '" + selectedName + "'";
-            java.sql.ResultSet rs = conf.getData(query);
-            if (rs.next()) {
-                String teacherID = rs.getString("u_id");
-                // Use this ID to save your evaluation records
+            ResultSet rs = conf.getData("SELECT q_text FROM tbl_question");
+            questions.clear();
+            while (rs.next()) {
+                questions.add(rs.getString("q_text"));
             }
             conf.closeResult(rs);
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            if (!questions.isEmpty()) {
+                ratings = new int[questions.size()];
+                displayQuestion();
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading questions: " + e.getMessage());
+        }
+    }
+    private void displayQuestion() {
+        if (currentQuestionIndex < questions.size()) {
+            lblQuestion.setText((currentQuestionIndex + 1) + ". " + questions.get(currentQuestionIndex));
+            bgroup.clearSelection();
         }
     }
     
-    int questionOffset = 0; // Class variable to track which question we are on
+    private void submitEvaluation() {
+        // 1. Validate all questions are answered
+        for (int i = 0; i < ratings.length; i++) {
+            if (ratings[i] == 0) {
+                JOptionPane.showMessageDialog(this, "Please answer question #" + (i + 1));
+                currentQuestionIndex = i;
+                displayQuestion();
+                return;
+            }
+        }
 
-    private void fetchAllQuestions() {
-    config conf = new config();
-    questions.clear();
-    try {
-        String query = "SELECT q_text FROM tbl_question";
-        java.sql.ResultSet rs = conf.getData(query);
-        while (rs.next()) {
-            questions.add(rs.getString("q_text"));
-        }
-        conf.closeResult(rs);
+        // 2. Calculate average
+        double total = 0;
+        for (int r : ratings) total += r;
+        double average = total / questions.size();
         
-        if (!questions.isEmpty()) {
-            ratings = new int[questions.size()]; // Initialize ratings array
-            displayCurrentQuestion();
+        // 3. Get Teacher ID (t_u_id) from ComboBox
+        String selected = teacherDropdown.getSelectedItem().toString();
+        String t_u_id = selected.split(" - ")[0];
+        
+        // 4. Determine Remarks
+        String remarks = (average >= 3.0) ? "Satisfactory" : "Needs Improvement";
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+
+        // 5. Insert Data
+        config conf = new config();
+        // Standardized to use t_u_id and s_u_id
+        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_remarks, e_date, e_year, e_sem) "
+                   + "VALUES ('" + t_u_id + "', '" + config.getID() + "', '" + average + "', '" + remarks + "', '" + date + "', '2024', '1st Semester')";
+        
+        if (conf.insertData(sql)) {
+            JOptionPane.showMessageDialog(this, "Evaluation Submitted Successfully!");
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Submission Failed. Database might be busy.");
         }
-    } catch (java.sql.SQLException e) {
-        System.out.println("Naay Error: " + e.getMessage());
     }
-}
     private void displayCurrentQuestion() {
     if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.size()) {
         lblQuestion.setText(questions.get(currentQuestionIndex)); // Your question label
@@ -517,6 +551,14 @@ public class evaluate extends javax.swing.JFrame {
         if (r4.isSelected()) return 4;
         if (r5.isSelected()) return 5;
         return 0; // Returns 0 if nothing is selected
+    }
+    
+   private double calculateAverage() {
+        double total = 0;
+        for (int rating : ratings) {
+            total += rating;
+        }
+        return (questions.isEmpty()) ? 0 : total / questions.size();
     }
    
     private void accountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountMouseClicked
@@ -620,13 +662,19 @@ public class evaluate extends javax.swing.JFrame {
     }//GEN-LAST:event_teacherDropdownActionPerformed
 
     private void NEXTMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NEXTMouseClicked
-     if (currentQuestionIndex < questions.size() - 1) {
-        ratings[currentQuestionIndex] = getSelectedGrade(); // Save current
-        currentQuestionIndex++;
-        displayCurrentQuestion(); // Load next
-    } else {
-        saveAllToDatabase(); // If it's the last question
-    }
+       if (r1.isSelected()) ratings[currentQuestionIndex] = 1;
+        else if (r2.isSelected()) ratings[currentQuestionIndex] = 2;
+        else if (r3.isSelected()) ratings[currentQuestionIndex] = 3;
+        else if (r4.isSelected()) ratings[currentQuestionIndex] = 4;
+        else if (r5.isSelected()) ratings[currentQuestionIndex] = 5;
+
+        if (currentQuestionIndex < questions.size() - 1) {
+            currentQuestionIndex++;
+            displayQuestion();
+        } else {
+            submitEvaluation();
+        }
+    
 
     }//GEN-LAST:event_NEXTMouseClicked
 
@@ -638,7 +686,10 @@ public class evaluate extends javax.swing.JFrame {
             currentQuestionIndex--;
             displayCurrentQuestion();
         }
-        }
+        
+
+    }//GEN-LAST:event_jLabel4MouseClicked
+
         private void saveAllToDatabase() {
             String teacherName = teacherDropdown.getSelectedItem().toString();
             if (teacherName.equals("— Select Teacher —")) {
@@ -670,12 +721,48 @@ public class evaluate extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Evaluation Submitted Successfully!");
                 this.dispose();
             }
-    }//GEN-LAST:event_jLabel4MouseClicked
-    
-    
-    /**
-     * @param args the command line arguments
-     */
+}
+       
+        
+    private void saveEvaluation() {
+        String teacherName = teacherDropdown.getSelectedItem().toString();
+        if (teacherName.equals("— Select Teacher —")) {
+            JOptionPane.showMessageDialog(this, "Please select a teacher!");
+            return;
+        }
+
+        config conf = new config();
+        String studentId = config.getOnlineID(); // Use the correct session getter from your config.java
+        String teacherId = "";
+
+        // 1. Fetch Teacher ID
+        try {
+            // Using tbl_user because your database snippet shows teachers are in tbl_user
+            String query = "SELECT u_id FROM tbl_user WHERE u_name = '" + teacherName + "'";
+            java.sql.ResultSet rs = conf.getData(query);
+            if (rs.next()) {
+                teacherId = rs.getString("u_id");
+            }
+            conf.closeResult(rs); 
+        } catch (java.sql.SQLException e) {
+            System.out.println("Error fetching teacher: " + e.getMessage());
+        }
+
+        // 2. Save Average to tbl_evaluation
+        double average = calculateAverage();
+        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_date) VALUES (?, ?, ?, DATE('now'))";
+        
+        // Use addRecord from your config.java (it handles closing the connection for you)
+        int result = conf.addRecord(sql, teacherId, studentId, average);
+
+        if (result > 0) {
+            JOptionPane.showMessageDialog(null, "Evaluation Saved Successfully!");
+            new studDashboard().setVisible(true);
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Error saving evaluation. Database might be busy.");
+        }
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
