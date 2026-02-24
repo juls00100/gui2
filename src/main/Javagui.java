@@ -3,6 +3,7 @@ package main;
 
 import authenticate.logIn;
 import authenticate.logIn;
+import config.config;
 
 
 
@@ -21,6 +22,8 @@ public class Javagui extends javax.swing.JFrame {
 
 public Javagui() {
     initComponents();
+    config conf = new config();
+        conf.manageHover(proceed);
 }
     
     @SuppressWarnings("unchecked")

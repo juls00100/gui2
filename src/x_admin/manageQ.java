@@ -19,7 +19,7 @@ public class manageQ extends javax.swing.JFrame {
         if (config.stopIllegalAccess(this)) return;
         initComponents();
         config conf = new config();
-         conf.manageHover(ADD);
+        conf.manageHover(ADD);
         conf.manageHover(EDIT);
         conf.manageHover(DELETE);
         conf.manageHover(a);
@@ -35,10 +35,10 @@ public class manageQ extends javax.swing.JFrame {
     public void totNumQues() { 
         quessts.setText("");
         config conf = new config(); 
-        int totalQue = conf.getCount("SELECT COUNT(*) FROM tbl_evaluation_questions"); 
+        int totalQue = conf.getCount("SELECT COUNT(*) FROM tbl_question"); 
         quesnumtot.setText(String.valueOf(totalQue));
 
-        java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_evaluation_questions");
+        java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_question");
         StringBuilder sb = new StringBuilder();
 
         int i = 1; 
@@ -48,6 +48,8 @@ public class manageQ extends javax.swing.JFrame {
         }
 
         quessts.setText(sb.toString());
+        this.revalidate();
+        this.repaint();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -462,31 +464,38 @@ public class manageQ extends javax.swing.JFrame {
         config conf = new config(); 
         String newQ = javax.swing.JOptionPane.showInputDialog(this, "Enter New Question:"); 
         if (newQ != null && !newQ.trim().isEmpty()) { 
-            conf.addRecord("INSERT INTO tbl_evaluation_questions (q_text) VALUES (?)", newQ); 
+            conf.addRecord("INSERT INTO tbl_question (q_text) VALUES (?)", newQ); 
             totNumQues(); 
         } 
     }//GEN-LAST:event_addBtnMouseClicked
 
     private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
-        String numStr = javax.swing.JOptionPane.showInputDialog(
-                this, "Enter the Question Number to Edit:"); 
+        String numStr = javax.swing.JOptionPane.showInputDialog(this, "Enter the Question Number to Edit:"); 
         if (numStr != null) { 
-            try { int num = Integer.parseInt(numStr); 
-            config conf = new config(); 
-            java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_evaluation_questions"); 
-            if (num > 0 && num <= questions.size()) { 
-                String oldQ = questions.get(num - 1).toString(); 
-                String newQ = javax.swing.JOptionPane.showInputDialog(this, "Edit Question:", oldQ); 
-                if (newQ != null && !newQ.trim().isEmpty()) { 
-                    conf.updateRecordOnly("UPDATE tbl_evaluation_questions SET q_text = ? WHERE q_text = ?", newQ, oldQ); 
-                    totNumQues(); 
-                } 
-            } 
-            } catch 
-                    (Exception e) { 
-                javax.swing.JOptionPane.showMessageDialog(this, "Error updating."); 
-            } 
-        } 
+            try { 
+                int num = Integer.parseInt(numStr); 
+                config conf = new config(); 
+                java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_question"); 
+
+                if (num > 0 && num <= questions.size()) { 
+                    String oldQ = questions.get(num - 1).toString(); 
+                    String newQ = javax.swing.JOptionPane.showInputDialog(this, "Edit Question:", oldQ); 
+
+                    if (newQ != null && !newQ.trim().isEmpty()) { 
+                        conf.updateRecordOnly("UPDATE tbl_question SET q_text = ? WHERE q_text = ?", newQ, oldQ.trim()); 
+                        totNumQues(); 
+                    } 
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(this, "Invalid Question Number!");
+                }
+                } catch (NumberFormatException e) { 
+                javax.swing.JOptionPane.showMessageDialog(this, "Please enter a valid number."); 
+                }
+            catch (Exception e) { 
+                javax.swing.JOptionPane.showMessageDialog(this, "Error: " + e.getMessage()); 
+                e.printStackTrace();
+            }
+        }
     }//GEN-LAST:event_editBtnMouseClicked
 
     private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
@@ -494,10 +503,10 @@ public class manageQ extends javax.swing.JFrame {
         if (numStr != null) { 
             try { int num = Integer.parseInt(numStr); 
             config conf = new config(); 
-            java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_evaluation_questions"); 
+            java.util.List questions = conf.getQuestionList("SELECT q_text FROM tbl_question"); 
             if (num > 0 && num <= questions.size()) { 
                 String qToDelete = questions.get(num - 1).toString(); 
-                conf.deleteRecord("DELETE FROM tbl_evaluation_questions WHERE q_text = ?", qToDelete); 
+                conf.deleteRecord("DELETE FROM tbl_question WHERE q_text = ?", qToDelete); 
                 totNumQues(); } } catch (Exception e) { 
                     javax.swing.JOptionPane.showMessageDialog(this, "Invalid input!"); 
                 } 

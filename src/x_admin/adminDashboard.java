@@ -490,8 +490,9 @@ public class adminDashboard extends javax.swing.JFrame {
 
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             config.setSession(null, null, null, null, null); 
-            new logIn().setVisible(true);
-            this.dispose(); 
+            logIn loginFrame = new logIn();
+            loginFrame.setVisible(true);
+            this.dispose();
         }
 
     }//GEN-LAST:event_logoutMouseClicked

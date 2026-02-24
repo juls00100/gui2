@@ -328,7 +328,7 @@
                 Connection conn = stmt.getConnection();
                 rs.close();
                 stmt.close();
-                if (conn != null) conn.close(); // Clears the SQLite lock
+                if (conn != null) conn.close(); 
             }
         }
     } catch (SQLException e) {

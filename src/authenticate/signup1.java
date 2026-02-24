@@ -11,6 +11,10 @@ public class signup1 extends javax.swing.JFrame {
 
     public signup1() {
         initComponents();
+        config conf = new config();
+        conf.manageHover(back);
+        conf.manageHover(r);
+        conf.manageHover(bg);
         
     }
     
@@ -29,9 +33,9 @@ public class signup1 extends javax.swing.JFrame {
         signupPanel = new javax.swing.JPanel();
         back = new javax.swing.JPanel();
         backlabel = new javax.swing.JLabel();
-        signupPanel1 = new javax.swing.JPanel();
+        r = new javax.swing.JPanel();
         registerbuton1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        bg = new javax.swing.JPanel();
         gg = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         textLabel = new javax.swing.JLabel();
@@ -105,11 +109,11 @@ public class signup1 extends javax.swing.JFrame {
 
         jPanel4.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 310, -1, 30));
 
-        signupPanel1.setBackground(new java.awt.Color(0, 204, 51));
-        signupPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        signupPanel1.setForeground(new java.awt.Color(0, 204, 51));
-        signupPanel1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        signupPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        r.setBackground(new java.awt.Color(0, 204, 51));
+        r.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        r.setForeground(new java.awt.Color(0, 204, 51));
+        r.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        r.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         registerbuton1.setBackground(new java.awt.Color(0, 153, 51));
         registerbuton1.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
@@ -123,15 +127,15 @@ public class signup1 extends javax.swing.JFrame {
                 registerbuton1MouseClicked(evt);
             }
         });
-        signupPanel1.add(registerbuton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
+        r.add(registerbuton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 80, 30));
 
-        jPanel4.add(signupPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 80, -1));
+        jPanel4.add(r, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 310, 80, -1));
 
-        jPanel1.setBackground(new java.awt.Color(0, 33, 71));
-        jPanel1.setForeground(new java.awt.Color(0, 33, 71));
+        bg.setBackground(new java.awt.Color(0, 33, 71));
+        bg.setForeground(new java.awt.Color(0, 33, 71));
 
         gg.setBackground(new java.awt.Color(197, 179, 88));
-        gg.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        gg.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         gg.setForeground(new java.awt.Color(197, 179, 88));
         gg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gg.setText("I already have an account");
@@ -144,22 +148,20 @@ public class signup1 extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(gg, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(gg, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(gg, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gg, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
         );
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 360, 190, 20));
+        jPanel4.add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 350, 240, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
@@ -171,7 +173,7 @@ public class signup1 extends javax.swing.JFrame {
         textLabel.setForeground(new java.awt.Color(240, 240, 240));
         textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textLabel.setText("Sign Up");
-        jPanel4.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 450, 35));
+        jPanel4.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, 450, 35));
 
         passs.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         passs.addActionListener(new java.awt.event.ActionListener() {
@@ -258,7 +260,7 @@ public class signup1 extends javax.swing.JFrame {
         // Step 1: Insert into the main User Table
         String sqlUser = "INSERT INTO tbl_user (u_name, u_email, u_pass, u_type, u_status) VALUES (?, ?, ?, ?, ?)";
 
-        if(con.addRecord(sqlUser, uName, uEmail, uPass, "Teacher", "Pending") == 1) {
+        if(con.addRecord(sqlUser, uName, uEmail, uPass, "Student", "Pending") == 1) {
 
             // Step 2: Insert into the specialized table based on the type
             
@@ -273,6 +275,7 @@ public class signup1 extends javax.swing.JFrame {
                 String sqlStudent = "INSERT INTO tbl_student (s_name, s_email) VALUES (?, ?)";
                 con.addRecord(sqlStudent, uName, uEmail);
             }*/
+            JOptionPane.showMessageDialog(null, "Thank for registering, please wait for admins approval. Tanks!");
             new logIn().setVisible(true);
             this.dispose();
 
@@ -317,6 +320,7 @@ public class signup1 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JPanel back;
     public javax.swing.JLabel backlabel;
+    public javax.swing.JPanel bg;
     public javax.swing.JTextField emails;
     public javax.swing.JLabel gg;
     public javax.swing.JLabel jLabel2;
@@ -324,15 +328,14 @@ public class signup1 extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel6;
-    public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
     public javax.swing.JTextField name;
     public javax.swing.JPasswordField passs;
+    public javax.swing.JPanel r;
     public javax.swing.JLabel registerbuton1;
     public javax.swing.JPanel signupPanel;
-    public javax.swing.JPanel signupPanel1;
     public javax.swing.JLabel textLabel;
     // End of variables declaration//GEN-END:variables
 }

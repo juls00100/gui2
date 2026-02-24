@@ -320,7 +320,7 @@ public class viewEvals extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        submitEval userstableFrame = new submitEval();
+        evaluate userstableFrame = new evaluate();
         userstableFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userMouseClicked

@@ -20,15 +20,24 @@ import javax.swing.JOptionPane;
 public class evaluate extends javax.swing.JFrame {
 
     private java.util.List<String> questions = new java.util.ArrayList<>();
-    private int[] ratings; // Stores ratings for each question
+    private int[] ratings; 
     private int currentQuestionIndex = 0;
     private String selectedTeacherID = "";
 
     public evaluate() {
-         if (config.stopIllegalAccess(this)) return;
+        if (config.stopIllegalAccess(this)) return;
         initComponents();
         loadTeachers();
         fetchAllQuestions();
+        config conf = new config();
+         conf.manageHover(next);
+        conf.manageHover(previous);
+        conf.manageHover(a);
+        conf.manageHover(e);
+        conf.manageHover(d);
+        conf.manageHover(g);
+        conf.manageHover(h);
+        conf.manageHover(i);
     }
 
    
@@ -64,12 +73,12 @@ public class evaluate extends javax.swing.JFrame {
         r4 = new javax.swing.JRadioButton();
         r5 = new javax.swing.JRadioButton();
         teacherDropdown = new javax.swing.JComboBox<>();
-        jPanel4 = new javax.swing.JPanel();
+        next = new javax.swing.JPanel();
         NEXT = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         lblQuestion = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        previous = new javax.swing.JPanel();
+        PREVIOUS = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -292,8 +301,12 @@ public class evaluate extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
 
+        jPanel5.setBackground(new java.awt.Color(204, 149, 230));
+
         bgroup.add(r2);
+        r2.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         r2.setText("2");
+        r2.setMargin(new java.awt.Insets(10, 10, 10, 10));
         r2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r2ActionPerformed(evt);
@@ -301,7 +314,9 @@ public class evaluate extends javax.swing.JFrame {
         });
 
         bgroup.add(r1);
+        r1.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         r1.setText("1");
+        r1.setMargin(new java.awt.Insets(10, 10, 10, 10));
         r1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r1ActionPerformed(evt);
@@ -309,7 +324,9 @@ public class evaluate extends javax.swing.JFrame {
         });
 
         bgroup.add(r3);
+        r3.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         r3.setText("3");
+        r3.setMargin(new java.awt.Insets(10, 10, 10, 10));
         r3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r3ActionPerformed(evt);
@@ -317,7 +334,9 @@ public class evaluate extends javax.swing.JFrame {
         });
 
         bgroup.add(r4);
+        r4.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         r4.setText("4");
+        r4.setMargin(new java.awt.Insets(10, 10, 10, 10));
         r4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r4ActionPerformed(evt);
@@ -325,7 +344,11 @@ public class evaluate extends javax.swing.JFrame {
         });
 
         bgroup.add(r5);
+        r5.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         r5.setText("5");
+        r5.setMargin(new java.awt.Insets(10, 10, 10, 10));
+        r5.setMaximumSize(new java.awt.Dimension(100, 100));
+        r5.setPreferredSize(new java.awt.Dimension(43, 31));
         r5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 r5ActionPerformed(evt);
@@ -337,39 +360,30 @@ public class evaluate extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(r2))
-                            .addComponent(r1))
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(r4)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(r5))))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(r3)))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addComponent(r1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(r2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(r3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(r4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(r5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 1, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(r2)
-                    .addComponent(r1)
-                    .addComponent(r4)
-                    .addComponent(r5)
-                    .addComponent(r3)))
+            .addComponent(r4, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+            .addComponent(r5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(r3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(r2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(r1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, 230, 30));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 300, 330, 50));
 
+        teacherDropdown.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         teacherDropdown.setToolTipText("SELECT A TEACHER");
         teacherDropdown.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -378,6 +392,9 @@ public class evaluate extends javax.swing.JFrame {
         });
         jPanel1.add(teacherDropdown, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 110, 240, -1));
 
+        next.setBackground(new java.awt.Color(39, 174, 96));
+
+        NEXT.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         NEXT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NEXT.setText("Next");
         NEXT.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -386,21 +403,22 @@ public class evaluate extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout nextLayout = new javax.swing.GroupLayout(next);
+        next.setLayout(nextLayout);
+        nextLayout.setHorizontalGroup(
+            nextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(nextLayout.createSequentialGroup()
                 .addComponent(NEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        nextLayout.setVerticalGroup(
+            nextLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(NEXT, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 80, 40));
+        jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 370, 80, 40));
 
+        lblQuestion.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         lblQuestion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblQuestion.setText("questions");
 
@@ -419,73 +437,74 @@ public class evaluate extends javax.swing.JFrame {
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 190, 400, 80));
 
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Previous");
-        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+        previous.setBackground(new java.awt.Color(197, 179, 88));
+
+        PREVIOUS.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        PREVIOUS.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PREVIOUS.setText("Previous");
+        PREVIOUS.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
+                PREVIOUSMouseClicked(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+        javax.swing.GroupLayout previousLayout = new javax.swing.GroupLayout(previous);
+        previous.setLayout(previousLayout);
+        previousLayout.setHorizontalGroup(
+            previousLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(previousLayout.createSequentialGroup()
+                .addComponent(PREVIOUS, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        previousLayout.setVerticalGroup(
+            previousLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(PREVIOUS, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
         );
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 80, 40));
+        jPanel1.add(previous, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 80, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void loadTeachers() {
-    config conf = new config();
-    ResultSet rs = null; // 1. Declare OUTSIDE the try block
-    try {
-        rs = conf.getData("SELECT t_u_id, t_name FROM tbl_teacher");
-        
-        // Use the correct name of your JComboBox (teacherDropdown or teacherCombo)
-        teacherDropdown.removeAllItems(); 
-        
-        while (rs.next()) {
-            teacherDropdown.addItem(rs.getString("t_u_id") + " - " + rs.getString("t_name"));
+        config conf = new config();
+        ResultSet rs = null; 
+        try {
+            rs = conf.getData("SELECT * FROM tbl_teacher JOIN tbl_user ON t_u_id = u_id");
+
+            teacherDropdown.removeAllItems(); 
+
+            while (rs.next()) {
+                teacherDropdown.addItem(rs.getString("t_u_id") + " - " + rs.getString("u_name"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error loading teachers: " + e.getMessage());
+        } finally {
+            conf.closeResult(rs); 
         }
-    } catch (SQLException e) {
-        System.out.println("Error loading teachers: " + e.getMessage());
-    } finally {
-        // 2. The finally block can now see 'rs'
-        // 3. Your config.closeResult already handles null checks, so this is safe
-        conf.closeResult(rs); 
     }
-}
     
     int questionOffset = 0; 
 
     private void fetchAllQuestions() {
         config conf = new config();
+        ResultSet rs = null;
         try {
-            ResultSet rs = conf.getData("SELECT q_text FROM tbl_question");
+            rs = conf.getData("SELECT q_text FROM tbl_question");
             questions.clear();
-            while (rs.next()) {
-                questions.add(rs.getString("q_text"));
-            }
-            conf.closeResult(rs);
-            if (!questions.isEmpty()) {
-                ratings = new int[questions.size()];
-                displayQuestion();
-            }
+                while (rs.next()) {
+                    questions.add(rs.getString("q_text"));
+                }
+            ratings = new int[questions.size()];
+        displayQuestion();
         } catch (SQLException e) {
-            System.out.println("Error loading questions: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            conf.closeResult(rs); 
         }
     }
+
     private void displayQuestion() {
         if (currentQuestionIndex < questions.size()) {
             lblQuestion.setText((currentQuestionIndex + 1) + ". " + questions.get(currentQuestionIndex));
@@ -494,41 +513,21 @@ public class evaluate extends javax.swing.JFrame {
     }
     
     private void submitEvaluation() {
-        // 1. Validate all questions are answered
-        for (int i = 0; i < ratings.length; i++) {
-            if (ratings[i] == 0) {
-                JOptionPane.showMessageDialog(this, "Please answer question #" + (i + 1));
-                currentQuestionIndex = i;
-                displayQuestion();
-                return;
-            }
-        }
-
-        // 2. Calculate average
         double total = 0;
         for (int r : ratings) total += r;
-        double average = total / questions.size();
-        
-        // 3. Get Teacher ID (t_u_id) from ComboBox
-        String selected = teacherDropdown.getSelectedItem().toString();
-        String t_u_id = selected.split(" - ")[0];
-        
-        // 4. Determine Remarks
-        String remarks = (average >= 3.0) ? "Satisfactory" : "Needs Improvement";
-        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+        double average = total / ratings.length;
 
-        // 5. Insert Data
         config conf = new config();
-        // Standardized to use t_u_id and s_u_id
-        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_remarks, e_date, e_year, e_sem) "
-                   + "VALUES ('" + t_u_id + "', '" + config.getID() + "', '" + average + "', '" + remarks + "', '" + date + "', '2024', '1st Semester')";
-        
-        if (conf.insertData(sql)) {
-            JOptionPane.showMessageDialog(this, "Evaluation Submitted Successfully!");
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Submission Failed. Database might be busy.");
-        }
+        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_date, e_year, e_sem) VALUES (?, ?, ?, ?, ?, ?)";
+
+        String studentID = config.getID(); 
+        String date = new java.text.SimpleDateFormat("yyyy-MM-dd").format(new java.util.Date());
+
+        conf.addRecord(sql, selectedTeacherID, studentID, average, date, "2026", "2nd");
+
+        JOptionPane.showMessageDialog(this, "Evaluation Submitted! Average: " + average);
+        new y_student.studDashboard().setVisible(true);
+        this.dispose(); 
     }
     private void displayCurrentQuestion() {
     if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.size()) {
@@ -588,7 +587,7 @@ public class evaluate extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel13MouseClicked
 
     private void userMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_userMouseClicked
-        submitEval userstableFrame = new submitEval();
+        evaluate userstableFrame = new evaluate();
         userstableFrame.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_userMouseClicked
@@ -673,12 +672,12 @@ public class evaluate extends javax.swing.JFrame {
             displayQuestion();
         } else {
             submitEvaluation();
+            new y_student.studDashboard().setVisible(true); 
+            this.dispose();
         }
-    
-
     }//GEN-LAST:event_NEXTMouseClicked
 
-    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+    private void PREVIOUSMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PREVIOUSMouseClicked
         if (currentQuestionIndex > 0) {
             // Optionally save the current rating before going back
             ratings[currentQuestionIndex] = getSelectedGrade();
@@ -688,7 +687,7 @@ public class evaluate extends javax.swing.JFrame {
         }
         
 
-    }//GEN-LAST:event_jLabel4MouseClicked
+    }//GEN-LAST:event_PREVIOUSMouseClicked
 
         private void saveAllToDatabase() {
             String teacherName = teacherDropdown.getSelectedItem().toString();
@@ -725,43 +724,21 @@ public class evaluate extends javax.swing.JFrame {
        
         
     private void saveEvaluation() {
-        String teacherName = teacherDropdown.getSelectedItem().toString();
-        if (teacherName.equals("— Select Teacher —")) {
-            JOptionPane.showMessageDialog(this, "Please select a teacher!");
-            return;
-        }
+        double total = 0;
+        for (int r : ratings) total += r;
+        double average = total / ratings.length;
+
+        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_date, e_year, e_sem) "
+                   + "VALUES (?, ?, ?, ?, ?, ?)";
 
         config conf = new config();
-        String studentId = config.getOnlineID(); // Use the correct session getter from your config.java
-        String teacherId = "";
+        String studentID = config.getID(); // Gets the logged-in student's ID
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-        // 1. Fetch Teacher ID
-        try {
-            // Using tbl_user because your database snippet shows teachers are in tbl_user
-            String query = "SELECT u_id FROM tbl_user WHERE u_name = '" + teacherName + "'";
-            java.sql.ResultSet rs = conf.getData(query);
-            if (rs.next()) {
-                teacherId = rs.getString("u_id");
-            }
-            conf.closeResult(rs); 
-        } catch (java.sql.SQLException e) {
-            System.out.println("Error fetching teacher: " + e.getMessage());
-        }
+        // Use your existing addRecord method
+        conf.addRecord(sql, selectedTeacherID, studentID, average, date, "2024", "1st Semester");
 
-        // 2. Save Average to tbl_evaluation
-        double average = calculateAverage();
-        String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_date) VALUES (?, ?, ?, DATE('now'))";
-        
-        // Use addRecord from your config.java (it handles closing the connection for you)
-        int result = conf.addRecord(sql, teacherId, studentId, average);
-
-        if (result > 0) {
-            JOptionPane.showMessageDialog(null, "Evaluation Saved Successfully!");
-            new studDashboard().setVisible(true);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Error saving evaluation. Database might be busy.");
-        }
+        JOptionPane.showMessageDialog(this, "Evaluation Submitted! Average Score: " + average);
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -799,6 +776,7 @@ public class evaluate extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Back;
     private javax.swing.JLabel NEXT;
+    private javax.swing.JLabel PREVIOUS;
     private javax.swing.JPanel a;
     private javax.swing.JLabel account;
     private javax.swing.JLabel account1;
@@ -811,17 +789,16 @@ public class evaluate extends javax.swing.JFrame {
     private javax.swing.JPanel h;
     private javax.swing.JPanel i;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lblQuestion;
     private javax.swing.JLabel logout;
     public javax.swing.JLabel namee;
+    private javax.swing.JPanel next;
+    private javax.swing.JPanel previous;
     private javax.swing.JLabel profile;
     private javax.swing.JRadioButton r1;
     private javax.swing.JRadioButton r2;

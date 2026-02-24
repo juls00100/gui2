@@ -23,6 +23,13 @@ public class studDashboard extends javax.swing.JFrame {
     public studDashboard() {
          if (config.stopIllegalAccess(this)) return;
         initComponents();
+        config conf = new config();
+        conf.manageHover(a);
+        conf.manageHover(e);
+        conf.manageHover(d);
+        conf.manageHover(g);
+        conf.manageHover(h);
+        conf.manageHover(i);
     }
 
     /**
@@ -346,7 +353,8 @@ public class studDashboard extends javax.swing.JFrame {
 
         if (confirm == javax.swing.JOptionPane.YES_OPTION) {
             config.setSession(null, null, null, null, null);
-            new logIn().setVisible(true);
+            logIn loginFrame = new logIn();
+            loginFrame.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_logoutMouseClicked

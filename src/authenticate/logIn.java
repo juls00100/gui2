@@ -9,6 +9,11 @@ public class logIn extends javax.swing.JFrame {
 
     public logIn() {
         initComponents();
+        
+        config conf = new config();
+        conf.manageHover(back);
+        conf.manageHover(Login);
+        conf.manageHover(bg);
     }
 
 
@@ -28,7 +33,7 @@ public class logIn extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         emails = new javax.swing.JTextField();
         textLabel = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        bg = new javax.swing.JPanel();
         gg = new javax.swing.JLabel();
         passs = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
@@ -84,7 +89,7 @@ public class logIn extends javax.swing.JFrame {
         });
         back.add(backlabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
 
-        jPanel4.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 70, 30));
+        jPanel4.add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 70, 30));
 
         Login.setBackground(new java.awt.Color(0, 204, 51));
         Login.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -104,36 +109,36 @@ public class logIn extends javax.swing.JFrame {
         });
         Login.add(login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 30));
 
-        jPanel4.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 280, 70, -1));
+        jPanel4.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, 70, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Password:");
-        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, 30));
+        jPanel4.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 1, 16)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(240, 240, 240));
         jLabel2.setText("Email:");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 90, 30));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 90, 30));
 
         emails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 emailsActionPerformed(evt);
             }
         });
-        jPanel4.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 190, 30));
+        jPanel4.add(emails, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 170, 190, 30));
 
         textLabel.setBackground(new java.awt.Color(0, 33, 71));
         textLabel.setFont(new java.awt.Font("Segoe UI Black", 1, 18)); // NOI18N
         textLabel.setForeground(new java.awt.Color(240, 240, 240));
         textLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         textLabel.setText("Log In");
-        jPanel4.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 450, 35));
+        jPanel4.add(textLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 450, 35));
 
-        jPanel1.setBackground(new java.awt.Color(0, 33, 71));
+        bg.setBackground(new java.awt.Color(0, 33, 71));
 
         gg.setBackground(new java.awt.Color(197, 179, 88));
-        gg.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
+        gg.setFont(new java.awt.Font("Segoe UI Black", 1, 14)); // NOI18N
         gg.setForeground(new java.awt.Color(197, 179, 88));
         gg.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gg.setText("No account? Create new one!");
@@ -146,21 +151,21 @@ public class logIn extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(gg, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+        javax.swing.GroupLayout bgLayout = new javax.swing.GroupLayout(bg);
+        bg.setLayout(bgLayout);
+        bgLayout.setHorizontalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(gg, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        bgLayout.setVerticalGroup(
+            bgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, bgLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(gg, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel4.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 250, 20));
-        jPanel4.add(passs, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 190, 30));
+        jPanel4.add(bg, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 230, 20));
+        jPanel4.add(passs, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 190, 30));
 
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 0, 450, 510));
 
@@ -192,49 +197,69 @@ public class logIn extends javax.swing.JFrame {
     }//GEN-LAST:event_backlabelMouseClicked
 
     private void loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_loginMouseClicked
-                               
+                                
     config conf = new config();
     
-        // 1. Check database for the user using their email and password
-        String query = "SELECT * FROM tbl_user WHERE u_email = '" + emails.getText() + "' AND u_pass = '" + passs.getText() + "'";
+    // 1. Get credentials from input fields
+    String userEmail = emails.getText();
+    String userPass = new String(passs.getPassword()); 
+    String query = "SELECT * FROM tbl_user WHERE u_email = '" + userEmail + "' AND u_pass = '" + userPass + "'";
 
-        try {
-            java.sql.ResultSet rs = conf.getData(query);
+    try {
+        java.sql.ResultSet rs = conf.getData(query);
 
-            if (rs.next()) {
-                String status = rs.getString("u_status");
-                String type = rs.getString("u_type");
+        if (rs.next()) {
+            String status = rs.getString("u_status");
+            String type = rs.getString("u_type");
 
-                // 2. Security Check: Only allow 'Active' or 'Approved' users
-                if (!status.equalsIgnoreCase("Active") && !status.equalsIgnoreCase("Approved")) {
-                    JOptionPane.showMessageDialog(null, "Your account is " + status + ". Please contact the Administrator.");
+            // 3. Check if account is approved
+            if (!status.equalsIgnoreCase("Active") && !status.equalsIgnoreCase("Approved")) {
+                JOptionPane.showMessageDialog(null, "Your account is " + status + ". Please contact the Administrator.");
+            } else {
+                // 4. SUCCESS! Save user details into the static config session
+                // This ensures other forms like 'evaluate.java' can access the User ID.
+                config.setSession(
+                    rs.getString("u_id"),
+                    rs.getString("u_name"),
+                    rs.getString("u_email"),
+                    rs.getString("u_type"),
+                    rs.getString("u_image") // Path to profile picture
+                );
+
+                JOptionPane.showMessageDialog(null, "Login Successful!");
+
+                // 5. Redirect based on User Type
+                if (type.equals("Admin")) {
+                    new x_admin.adminDashboard().setVisible(true);
+                } else if (type.equals("Student")) {
+                    new y_student.studDashboard().setVisible(true);
+                } else if (type.equals("Teacher")) {
+                    // Make sure this package/class exists in your project
+                    // new z_teacher.teacherDashboard().setVisible(true); 
+                    JOptionPane.showMessageDialog(null, "Teacher Dashboard coming soon.");
                 } else {
-                    // 3. SUCCESS! Save all user info into the Session (including the image path)
-                    config.setSession(
-                        rs.getString("u_id"),
-                        rs.getString("u_name"),
-                        rs.getString("u_email"),
-                        rs.getString("u_type"),
-                        rs.getString("u_image") // Ensure this column exists in your SQLite tbl_user
-                    );
-
-                    if (type.equals("Admin")) {
-                        new x_admin.adminDashboard().setVisible(true);
-                    } else if (type.equals("Student")) {
-                        new y_student.studDashboard().setVisible(true);
-                    } else if (type.equals("Teacher")) {
-                        new z_teacher.teacherDashboard().setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(null, "User type not recognized.");
-                        return;
-                    }
-                    this.dispose();
+                    JOptionPane.showMessageDialog(null, "User type not recognized.");
+                    return;
                 }
-            } 
-        } catch (java.sql.SQLException e) {
-            System.out.println("Login Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null, "Database Connection Error!");
+                
+                // Close the login form
+                this.dispose();
+            }
+        } else {
+            // User not found in database
+            JOptionPane.showMessageDialog(null, "INVALID EMAIL OR PASSWORD.");
+            emails.setText(""); 
+            passs.setText("");
         }
+        
+        // Always close the result set to free database locks
+        conf.closeResult(rs);
+
+    } catch (java.sql.SQLException e) {
+        System.out.println("Login Error: " + e.getMessage());
+        JOptionPane.showMessageDialog(null, "Database Connection Error!");
+    }
+
     }//GEN-LAST:event_loginMouseClicked
 
     private void ggMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ggMouseClicked
@@ -278,6 +303,7 @@ public class logIn extends javax.swing.JFrame {
     public javax.swing.JPanel Login;
     public javax.swing.JPanel back;
     public javax.swing.JLabel backlabel;
+    public javax.swing.JPanel bg;
     public javax.swing.JPanel create;
     public javax.swing.JTextField emails;
     public javax.swing.JLabel gg;
@@ -285,7 +311,6 @@ public class logIn extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel5;
-    public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel3;
     public javax.swing.JPanel jPanel4;
