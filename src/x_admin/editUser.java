@@ -282,7 +282,7 @@ public class editUser extends javax.swing.JFrame {
 
         save.setFont(new java.awt.Font("Segoe UI Black", 1, 12)); // NOI18N
         save.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        save.setText("SAVE");
+        save.setText("UPDATE");
         save.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 saveMouseClicked(evt);

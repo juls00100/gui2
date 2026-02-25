@@ -472,12 +472,10 @@ public class evaluate extends javax.swing.JFrame {
         ResultSet rs = null; 
         try {
             rs = conf.getData("SELECT * FROM tbl_teacher JOIN tbl_user ON t_u_id = u_id");
-
-            teacherDropdown.removeAllItems(); 
-
-            while (rs.next()) {
-                teacherDropdown.addItem(rs.getString("t_u_id") + " - " + rs.getString("u_name"));
-            }
+        teacherDropdown.removeAllItems();
+        while (rs.next()) {
+            teacherDropdown.addItem(rs.getString("t_u_id") + " - " + rs.getString("u_name"));
+        }
         } catch (SQLException e) {
             System.out.println("Error loading teachers: " + e.getMessage());
         } finally {
@@ -513,11 +511,12 @@ public class evaluate extends javax.swing.JFrame {
     }
     
     private void submitEvaluation() {
+        config conf = new config();
+        
         double total = 0;
         for (int r : ratings) total += r;
         double average = total / ratings.length;
 
-        config conf = new config();
         String sql = "INSERT INTO tbl_evaluation (t_u_id, s_u_id, e_average_rating, e_date, e_year, e_sem) VALUES (?, ?, ?, ?, ?, ?)";
 
         String studentID = config.getID(); 
@@ -531,9 +530,8 @@ public class evaluate extends javax.swing.JFrame {
     }
     private void displayCurrentQuestion() {
     if (currentQuestionIndex >= 0 && currentQuestionIndex < questions.size()) {
-        lblQuestion.setText(questions.get(currentQuestionIndex)); // Your question label
+        lblQuestion.setText(questions.get(currentQuestionIndex)); 
         
-        // Restore previous selection if it exists
         bgroup.clearSelection();
         int savedRating = ratings[currentQuestionIndex];
         if (savedRating == 1) r1.setSelected(true);
@@ -666,11 +664,16 @@ public class evaluate extends javax.swing.JFrame {
         else if (r3.isSelected()) ratings[currentQuestionIndex] = 3;
         else if (r4.isSelected()) ratings[currentQuestionIndex] = 4;
         else if (r5.isSelected()) ratings[currentQuestionIndex] = 5;
-
+        else {
+        JOptionPane.showMessageDialog(this, "Please select a rating before proceeding.");
+        return;
+    }
         if (currentQuestionIndex < questions.size() - 1) {
             currentQuestionIndex++;
             displayQuestion();
         } else {
+            String selected = teacherDropdown.getSelectedItem().toString();
+            selectedTeacherID = selected.split(" - ")[0];
             submitEvaluation();
             new y_student.studDashboard().setVisible(true); 
             this.dispose();
@@ -737,8 +740,9 @@ public class evaluate extends javax.swing.JFrame {
 
         // Use your existing addRecord method
         conf.addRecord(sql, selectedTeacherID, studentID, average, date, "2024", "1st Semester");
-
-        JOptionPane.showMessageDialog(this, "Evaluation Submitted! Average Score: " + average);
+        if(conf.insertData(sql)){
+        JOptionPane.showMessageDialog(null, "Evaluation Saved!  Average Score: " + average);
+    }
     }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

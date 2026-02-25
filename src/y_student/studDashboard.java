@@ -23,6 +23,7 @@ public class studDashboard extends javax.swing.JFrame {
     public studDashboard() {
          if (config.stopIllegalAccess(this)) return;
         initComponents();
+        displayDetails();
         config conf = new config();
         conf.manageHover(a);
         conf.manageHover(e);
@@ -60,6 +61,7 @@ public class studDashboard extends javax.swing.JFrame {
         user1 = new javax.swing.JLabel();
         logout = new javax.swing.JLabel();
         profile = new config.CircularLabel();
+        user2 = new javax.swing.JLabel();
         namee = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -276,18 +278,36 @@ public class studDashboard extends javax.swing.JFrame {
         });
         jPanel3.add(profile, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 60));
 
-        namee.setBackground(new java.awt.Color(44, 62, 80));
-        namee.setFont(new java.awt.Font("Segoe UI Black", 0, 16)); // NOI18N
-        namee.setForeground(new java.awt.Color(240, 240, 240));
-        jPanel3.add(namee, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 140, 30));
-
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 70));
+
+        user2.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        user2.setForeground(new java.awt.Color(197, 179, 88));
+        user2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        user2.setText("HELLO! ");
+        user2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                user2MouseClicked(evt);
+            }
+        });
+        jPanel1.add(user2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 200, 280, 120));
+
+        namee.setBackground(new java.awt.Color(44, 62, 80));
+        namee.setFont(new java.awt.Font("Segoe UI Black", 1, 20)); // NOI18N
+        namee.setForeground(new java.awt.Color(240, 240, 240));
+        jPanel1.add(namee, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 240, 140, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    private void displayDetails(){
+    namee.setText(config.getName()); 
+    
+    String path = config.getImage(); 
+   // if (path != null) {
+        // Use your config helper to scale and set the image to the 'profile' label
+   //  profile.setIcon(config.resizeImage(path, 120, 120));}
+}
     private void accountMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_accountMouseClicked
         userAccount accFrame = new userAccount();
         accFrame.setVisible(true);
@@ -365,6 +385,10 @@ public class studDashboard extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_profileMouseClicked
 
+    private void user2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_user2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_user2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -422,5 +446,6 @@ public class studDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel profile;
     private javax.swing.JLabel user;
     private javax.swing.JLabel user1;
+    private javax.swing.JLabel user2;
     // End of variables declaration//GEN-END:variables
 }
